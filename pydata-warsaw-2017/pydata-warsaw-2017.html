@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Programming Languages</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen-16x10.css">
+</head>
+<body class="shower list">
+
+	<header class="caption">
+		<button type="button" id="fullscreen" title="Go fullscreen" onclick="fullscreen()"><i class="fa fa-arrows-alt"></i></button>
+		<h1>Programming Languages</h1>
+		<p>Waren Long, <a href="https://sourced.tech">source{d}</a>.</p>
+	</header>
+
+	<style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        -webkit-full-screen {
+            z-index: 1;
+            height: 100%;
+        }
+        :-webkit-full-screen .full section {
+            /* fix buggy Chrome offsets */
+            margin-left: -1px !important;
+            margin-top: -1px !important;
+        }
+        @media not print {
+            .slide {
+                color: white;
+                background: black;
+            }
+            .slide h2 {
+                color: #bababa;
+            }
+        }
+        #fullscreen {
+            float: right;
+            height: 48px;
+            width: 48px;
+            background: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            border: none;
+            color: #3c3d40;
+            position: fixed;
+            right: 10px;
+			top: 10px;
+        }
+        #fullscreen:hover {
+            color: #bababa;
+        }
+        #fullscreen:focus {
+            outline: none;
+        }
+        #fullscreen > i {
+            font-size: 36px;
+            text-align: center;
+        }
+        .slide p {
+            line-height: 1.25;
+        }
+        .slide::after {
+            display: none;
+        }
+        .no-link {
+            background: none !important;
+        }
+        .center {
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h2.bottom {
+            position: absolute;
+            bottom: 50px;
+        }
+        .important {
+            color: red;
+        }
+        .mono {
+            font-family: monospace;
+        }
+        .video {
+            padding-top: 0;
+            padding-bottom: 10px;
+        }
+        .success {
+            color: green;
+        }
+        .vista {
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .vista-cover {
+            background-size: cover;
+        }
+        i.fa {
+            font-style: normal;
+        }
+        ul.no-bullets > li::before {
+            display: none;
+            text-indent: 0;
+        }
+        ul.no-bullets > li {
+            text-indent: 0;
+			padding-left: 0 !important;
+        }
+		ul.columns {
+			overflow: hidden;
+		}
+		ul.columns > li {
+			float: left;
+			display: inline;
+			width: 50%;
+			padding-left: 24px;
+		}
+		code.inline:before, code.inline-no-offset:before {
+			display: none;
+		}
+		code.inline, code.inline-no-offset {
+			padding: 0;
+		}
+		code.inline-no-offset {
+			margin-left: 0 !important;
+			padding-left: 50px !important;
+		}
+		.bottom-space {
+			margin-bottom: 2em !important;
+		}
+    </style>
+
+	<section class="slide" id="cover">
+		<h2>Programming Languages</h2>
+		<p>Waren Long, <a class="no-link" href="https://sourced.tech">source{d}</a></p>
+		<figure>
+			<img class="cover" src="pictures/eigenvect_stack_22lang_crop.png" alt="Hercules Killing the Lernean Hydra">
+		</figure>
+		<style>
+            #cover h2 {
+                margin:30px 0 0;
+                color:#FFF;
+                text-align:center;
+                font-size:70px;
+            }
+            #cover p {
+                margin:10px 0 0;
+                text-align:center;
+                color:#FFF;
+                font-style:italic;
+                font-size:20px;
+            }
+                #cover p a {
+                    color:#FFF;
+                }
+            #cover img {
+                width: 100%;
+                object-fit: cover;
+				filter: brightness(0.2);
+            }
+        </style>
+	</section>
+
+	<section class="slide">
+        <h2>Read this on your device</h2>
+        <!-- <img> with @media srcset does not work! -->
+        <div class="vista center" id="qrcode"></div>
+        <style>
+            #qrcode {
+                width: 350px;
+                height: 350px;
+                background-image: url("pictures/qrcode_black.svg");
+            }
+            @media not print {
+                #qrcode {
+                    background-image: url("pictures/qrcode_white.svg");
+                }
+            }
+        </style>
+	</section>
+	
+	<section class="slide">
+			<h2>About me</h2>
+			<ul>
+				<li>Intern, Machine Learning @ <a href="http://sourced.tech">source{d}</a></li>
+				<li>Education: Optimization in Paris, France</li>
+			</ul>
+		</section>
+	
+		<section class="slide">
+			<h2>About source{d}</h2>
+			<ul>
+				<li>"AI on code"</li>
+				<li>We started as a hiring middleware</li>
+				<li>You may have read <a href="https://blog.sourced.tech/post/language_migrations/">"how developers change programming languages"</a></li>
+				<li>Open everything! <a href="https://github.com/src-d/landing">web site</a>,
+					<a href="https://github.com/src-d/guide">company rules</a>,
+					<a href="https://github.com/src-d/homebrew">brewery</a>
+				</li>
+				<li>Our technical blog <a href="https://blog.sourced.tech">blog</a></li>
+			</ul>
+		</section>
+
+	<section class="slide">
+		<h2>History</h2>
+		<ul>
+			<li>The story started from Erik Bernhardsson's blog post 
+				<a href="https://erikbern.com/2017/03/15/the-eigenvector-of-why-we-moved-from-language-x-to-language-y.html">The eigenvector of "Why we moved from language X to language Y"</a></li>
+			<li>source{d} opened the 
+				<a href="https://drive.google.com/drive/u/0/folders/0B-w8jGUJto0iVFB2UWc4RlpZV28">dataset</a> containing the language distribution of repositories on GitHub</li>
+			<li>We decided to study <a href="https://blog.sourced.tech/post/language_migrations/">the popularity of languages</a></li> based on developers movings</li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<h2>The dataset</h2>
+		<ul>
+			<li>4.5 Million GitHub users</li>
+			<li>393 different languages</li>
+			<li>10 TB of source code in total</li>
+		</ul>
+	</section>
+
+	<section class="slide">
+        <h2>The dataset</h2>
+		<figure>
+			<img src="pictures/gantt_black.png" class="center" id="spark">
+			<figcaption class="black">
+				<a href="https://github.com/apache/spark/commit/7026ee23e0a684e13f9d7dfbb8f85e810106d022#diff-916ca56b663f178f302c265b7ef38499">apache/spark@7026ee23</a>
+			</figcaption>
+		</figure>
+		<style>
+			#spark {
+				height: 400px;
+			}
+			#spark + figcaption {
+				position: absolute;
+				bottom: 50px;
+				right: 180px;
+				font-size: 12px;
+				-webkit-transform-origin: 0 100%;
+				transform-origin: 0 100%;
+				-webkit-transform: translateX(100%) rotate(-90deg);
+				transform: translateX(100%) rotate(-90deg);
+			}
+		</style>
+	</section>
+
+	<section class="slide">
+		<h2>Quantization</h2>
+		<p class="no-margin">We apply Snowball stemmer to words longer than 6 chars</p>
+		<div class="vista center" id="name-lengths"></div>
+		<style>
+			#name-lengths {
+				height: 400px;
+				width: 600px;
+				margin-top: -50px;
+				background: white url("pictures/contributions_black.png");
+			}
+		</style>
+	</section>
+
+	<section class="slide">
+        <h2>Quantization</h2>
+		<figure>
+			<img src="pictures/contributions_black.png" class="center" id="spark">
+			<figcaption class="black">
+				<a href="https://github.com/apache/spark/commit/7026ee23e0a684e13f9d7dfbb8f85e810106d022#diff-916ca56b663f178f302c265b7ef38499">apache/spark@7026ee23</a>
+			</figcaption>
+		</figure>
+		<style>
+			#spark {
+				height: 400px;
+			}
+			#spark + figcaption {
+				position: absolute;
+				bottom: 50px;
+				right: 180px;
+				font-size: 12px;
+				-webkit-transform-origin: 0 100%;
+				transform-origin: 0 100%;
+				-webkit-transform: translateX(100%) rotate(-90deg);
+				transform: translateX(100%) rotate(-90deg);
+			}
+		</style>
+	</section>
+
+	<section class="slide">
+        <h2>Transportation Problem</h2>
+		<figure>
+			<img src="pictures/emd_black.png" class="center" id="spark">
+			<figcaption class="black">
+				<a href="https://github.com/apache/spark/commit/7026ee23e0a684e13f9d7dfbb8f85e810106d022#diff-916ca56b663f178f302c265b7ef38499">apache/spark@7026ee23</a>
+			</figcaption>
+		</figure>
+		<style>
+			#spark {
+				height: 400px;
+			}
+			#spark + figcaption {
+				position: absolute;
+				bottom: 50px;
+				right: 180px;
+				font-size: 12px;
+				-webkit-transform-origin: 0 100%;
+				transform-origin: 0 100%;
+				-webkit-transform: translateX(100%) rotate(-90deg);
+				transform: translateX(100%) rotate(-90deg);
+			}
+		</style>
+	</section>
+    
+    <section class="slide">
+        <h2>EMD as minimum-cost flow</h2>
+        <div id="hcenter">
+        <p class="center">$$
+			\left\{
+			\begin{array}{lll}
+			\min   & \sum_{i=1}^S \sum_{j=1}^D ~ x_{i,j} c_{i,j} \\\\
+			s.c.   & \sum_{j=1}^D x_{i,j} = 1 & ~~i = 1,...,S   \\\\
+				   & \sum_{i=1}^S x_{i,j} = 1 & ~~j = 1,...,D   \\\\
+				   & x_{i,j} \geq 0 & ~~i,j = 1,...,S,D
+			\end{array}
+			\right.
+			$$</p>
+        </div>
+        <style>
+            #hcenter {
+                display: flex;
+                align-items: center;
+            }
+        </style>
+	</section>
+
+    <section class="slide" id="matrix">
+        <div class="vista"></div>
+		<h2>Transition</h2>
+        <h2>Matrix</h2>
+        <style>
+            #matrix > div {
+                position: absolute;
+                left: 15%;
+                top: 10%;
+                width: 100%;
+                height: 85%;
+                background-image: url("pictures/sum_matrix_0diag_22lang_black.png");
+            }
+        </style>
+    </section>
+	
+	<section class="slide">
+        <h2>Importance</h2>
+        <p>"Importance" is defined recursively: we gain ego if we contribute to repositories to which other important developers contribute.</p>
+        <p>\[x_ {AR} = \frac{w_ 1 x_ 1 + w_ 2 x_ 2 + w_ 3 x_ 3 + ...}{\lambda} = \frac{1}{\lambda} \sum w_ i x_ i\]</p>
+        <p>We do not distinguish developers and repositories here.</p>
+	</section>
+	
+	<section class="slide" id="matrix-sorted">
+        <div class="vista"></div>
+		<h2>Transition</h2>
+        <h2>Matrix Sorted</h2>
+        <style>
+            #matrix-sorted > div {
+                position: absolute;
+                left: 15%;
+                top: 10%;
+                width: 100%;
+                height: 85%;
+                background-image: url("pictures/sum_matrix_25lang_eig_black.png");
+            }
+        </style>
+	</section>
+	
+	<section class="slide" id="stack">
+        <div class="vista"></div>
+		<h2>Language</h2>
+        <h2>Competition</h2>
+        <style>
+            #stack > div {
+                position: absolute;
+                left: 15%;
+                top: 10%;
+                width: 100%;
+                height: 85%;
+                background-image: url("pictures/eigenvect_stack_22lang.png");
+            }
+        </style>
+    </section>
+	
+	<section class="slide" id="correlation-matrix">
+        <div class="vista"></div>
+		<h2>Correlation</h2>
+        <h2>Matrix</h2>
+        <style>
+            #correlation-matrix > div {
+                position: absolute;
+                left: 15%;
+                top: 10%;
+                width: 100%;
+                height: 85%;
+                background-image: url("pictures/corr_matrix_23lang_black.png");
+            }
+        </style>
+	</section>
+
+	<section class="slide">
+		<h2>Future</h2>
+		<ul>
+			<li>Survivability metric calculation</li>
+			<li>Per developer, per file and per directory basis</li>
+			<li>Open source implementation of X-Ray engine by
+				<a href="http://www.empear.com/">Empear</a></li>
+		</ul>
+	</section>
+
+
+	<section class="slide">
+		<h2>Bonus: blog posts</h2>
+		<ul>
+			<li><a href="https://blog.sourced.tech/post/activity_hours/">Daily commit activity on GitHub</a></li>
+			<li><a href="https://blog.sourced.tech/post/handshakes_pagerank/">GitHub Contributions Graph: Analyzing PageRank & Proving The 6 Handshakes Theory</a></li>
+			<li><a href="https://blog.sourced.tech/post/tab_vs_spaces/">397 Languages, 18,000,000 GitHub repositories, 1.2 billion files, 20 terabytes of code: Spaces or Tabs</a></li>
+		</ul>
+	</section>
+
+	<section class="slide">
+        <h2>Thank you</h2>
+        <ul class="no-bullets columns bottom-space">
+			<li>My contacts</li>
+			<li>source{d}</li>
+			<li><i class="fa fa-envelope"></i> <a href="mailto://waren@sourced.tech">waren@sourced.tech</a></li>
+			<li><i class="fa fa-envelope"></i> <a href="mailto://hello@sourced.tech">machine-learning@sourced.tech</a></li>
+			<li><i class="fa fa-twitter"></i> <a href="https://twitter.com/warenlg">warenlg</a></li>
+			<li><i class="fa fa-twitter"></i> <a href="https://twitter.com/srcd_">srcd_</a></li>
+            <li><i class="fa fa-github"></i> <a href="https://github.com/warenlg">warenlg</a></li>
+			<li><i class="fa fa-github"></i> <a href="https://github.com/src-d">src-d</a></li>
+			<li><i class="fa fa-rss"></i> <a href="https://blog.sourced.tech/post/language_migrations/">blog post</a></li>
+			<li><i class="fa fa-rss"></i> <a href="https://sourced.tech/">sourced.tech</a></li>			
+			
+		</ul>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="progress"></div>
+
+	<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+	<script src="shower/shower.min.js"></script>
+	<script async src="https://use.fontawesome.com/72adc0539b.js"></script>
+	<script>
+    function fullscreen() {
+        if (!document.fullscreenElement && !document.mozFullScreenElement &&
+			!document.webkitFullscreenElement) {
+            var body = document.getElementsByTagName("html")[0];
+            if (body.requestFullscreen) {
+                body.requestFullscreen();
+            } else if (body.mozRequestFullScreen) {
+                body.mozRequestFullScreen();
+            } else if (body.webkitRequestFullScreen) {
+                body.webkitRequestFullScreen();
+            }
+            document.getElementById("fullscreen").title = "Return";
+        } else {
+            if (document.cancelFullScreen) {
+                document.cancelFullScreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            }
+            document.getElementById("fullscreen").title = "Go fullscreen";
+        }
+    }
+    </script>
+</body>
+</html>
+
