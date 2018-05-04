@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Analyzing GitHub, how developers change programming languages over time</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen-16x10.css">
+</head>
+<body class="shower list">
+
+	<header class="caption">
+		<button type="button" id="fullscreen" title="Go fullscreen" onclick="fullscreen()"><i class="fa fa-arrows-alt"></i></button>
+		<h1>Analyzing GitHub, how developers change programming languages over time</h1>
+		<p>Waren Long, <a href="https://sourced.tech">source{d}</a>.</p>
+	</header>
+
+	<style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        -webkit-full-screen {
+            z-index: 1;
+            height: 100%;
+        }
+        :-webkit-full-screen .full section {
+            /* fix buggy Chrome offsets */
+            margin-left: -1px !important;
+            margin-top: -1px !important;
+        }
+        @media not print {
+            .slide {
+                color: white;
+                background: black;
+            }
+            .slide h2 {
+                color: #bababa;
+            }
+        }
+        #fullscreen {
+            float: right;
+            height: 48px;
+            width: 48px;
+            background: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            border: none;
+            color: #3c3d40;
+            position: fixed;
+            right: 10px;
+			top: 10px;
+        }
+        #fullscreen:hover {
+            color: #bababa;
+        }
+        #fullscreen:focus {
+            outline: none;
+        }
+        #fullscreen > i {
+            font-size: 36px;
+            text-align: center;
+        }
+        .slide p {
+            line-height: 1.25;
+        }
+        .slide::after {
+            display: none;
+        }
+        .no-link {
+            background: none !important;
+        }
+        .center {
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h2.bottom {
+            position: absolute;
+            bottom: 50px;
+        }
+        .important {
+            color: red;
+        }
+        .mono {
+            font-family: monospace;
+        }
+        .video {
+            padding-top: 0;
+            padding-bottom: 10px;
+        }
+        .success {
+            color: green;
+        }
+        .vista {
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .vista-cover {
+            background-size: cover;
+        }
+        i.fa {
+            font-style: normal;
+        }
+        ul.no-bullets > li::before {
+            display: none;
+            text-indent: 0;
+        }
+        ul.no-bullets > li {
+            text-indent: 0;
+			padding-left: 0 !important;
+        }
+		ul.columns {
+			overflow: hidden;
+		}
+		ul.columns > li {
+			float: left;
+			display: inline;
+			width: 50%;
+			padding-left: 24px;
+		}
+		code.inline:before, code.inline-no-offset:before {
+			display: none;
+		}
+		code.inline, code.inline-no-offset {
+			padding: 0;
+		}
+		code.inline-no-offset {
+			margin-left: 0 !important;
+			padding-left: 50px !important;
+		}
+		.bottom-space {
+			margin-bottom: 2em !important;
+		}
+    </style>
+
+	<section class="slide" id="cover">
+		<h2>Analyzing GitHub, how developers change programming languages over time</h2>
+        <br>
+        <p>Waren Long, <a class="no-link" href="https://sourced.tech">source{d}</a></p>
+        <p><a class="no-link" href="https://pyvie2018.gitlab.io/">PyDays Vienna</a>, 2018</p>
+        
+		<figure>
+			<img class="cover" src="pictures/eigenvect_stack_22lang_crop.png" alt="The programming language competition in the open source world">
+		</figure>
+		<style>
+            #cover h2 {
+                margin:30px 0 0;
+                color:#FFF;
+                text-align:center;
+                font-size:70px;
+            }
+            #cover p {
+                margin:10px 0 0;
+                text-align:center;
+                color:#FFF;
+                font-style:italic;
+                font-size:20px;
+            }
+                #cover p a {
+                    color:#FFF;
+                }
+            #cover img {
+                width: 100%;
+                object-fit: cover;
+				filter: brightness(0.2);
+            }
+        </style>
+	</section>
+	
+	<section class="slide">
+		<h2>History</h2>
+		<ul>
+			<li><a href="https://erikbern.com/2017/03/15/the-eigenvector-of-why-we-moved-from-language-x-to-language-y.html">The eigenvector of "Why we moved from language X to language Y"</a>, <br> Erik Bernhardsson</li>
+			<li>source{d} opened the 
+				<a href="https://drive.google.com/drive/u/0/folders/0B-w8jGUJto0iVFB2UWc4RlpZV28">dataset</a> containing the language distribution of GitHub repositories</li>
+			<li>Study of the <a href="https://blog.sourced.tech/post/language_migrations/">popularity of languages</a> based on GitHub repositories</li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<h2>The dataset</h2>
+		<ul>
+			<li>4.5 Million GitHub users</li>
+			<li>393 different languages</li>
+			<li>10 TB of source code in total</li>
+		</ul>
+    </section>
+
+    
+    <section class="slide" id="gantt">
+            <div class="vista"></div>
+            <h2>The dataset</h2>
+            <p class="graph-notice">Programming language history of GitHub user X</p> 
+            <style>
+                .graph-notice {
+                    position: absolute;
+                    top: 200px;
+                }
+                #gantt > div {
+                    position: absolute;
+                    left: 10%;
+                    top: 20%;
+                    width: 80%;
+                    height: 80%;
+                    background-image: url("pictures/gantt_black.png");
+                }
+            </style>
+        </section>
+
+    	<section class="slide">
+                <h2>Filtering</h2>
+                <ul>
+                    <li>From 2000 to 2015</li>
+                    <li>Focus on 20 main programming languages : Python, C, C++, Java, Ruby, Go, Pascal, Julia, ...etc.</li>                      
+                    <li>Excluding JavaScript because :
+                        <ul>
+                            <li>40% of Github users have JS in their profiles</li>
+                            <li>On the backend, JS is refered as "Node"</li>
+                            <li>On the frontend, hard to deal wihtout it</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+    
+    <section class="slide" id="quant">
+            <div class="vista"></div>
+            <h2>Quantization</h2>
+            <style>
+                #quant > div {
+                    position: absolute;
+                    left: 15%;
+                    top: 25%;
+                    width: 70%;
+                    height: 70%;
+                    background-image: url("pictures/contributions_black.png");
+                }
+            </style>
+        </section>
+    
+    <section class="slide" id="emd">
+        <div class="vista"></div>
+        <h2>Transportation</h2>
+        <h2>Problem (LP)</h2>
+        <i>How to calculate the flows <br> between 2 language profiles ?<br></i>
+        <br>
+        <ul>
+            <li>Solve the min-cost flow problem</li>
+            <li>Earth Movers Distance,  <a href="https://pypi.python.org/pypi/pyemd">pyemd</a></li>
+        </ul>
+         <style>
+            #emd > div {
+                position: absolute;
+                left: 45%;
+                top: 25%;
+                width: 65%;
+                height: 65%;
+                background-image: url("pictures/emd_black.png");
+            }
+        </style>
+    </section>
+    
+    <section class="slide">
+        <h2>Minimum-cost flow problem & EMD</h2>
+        <div id="hcenter">
+        <p class="center">$$
+			(\mathcal{P})~~ \left\{
+			\begin{array}{lll}
+			\min   & \sum_{i=1}^S \sum_{j=1}^D ~ x_{i,j} c_{i,j} \\
+			s.c.   & \sum_{j=1}^D x_{i,j} \leq s_i & ~~i = 1,...,S   \\
+				   & \sum_{i=1}^S x_{i,j} \geq d_j & ~~j = 1,...,D   \\
+				   & x_{i,j} \geq 0 & ~~i,j = 1,...,S,D
+			\end{array}
+			\right.
+            $$</p>
+        </div>
+        <style>
+            #hcenter {
+                display: flex;
+                align-items: center;
+            }
+        </style>
+    <p>Hypothesis :$$\sum_{i=1}^N s_i = \sum_{j=1}^N d_j ~~~~~\mbox{and}~~~~~ c_{i,j} = 1 ~~~~\forall i,j$$</p>
+	</section>
+
+    <section class="slide" id="matrix">
+        <div class="vista"></div>
+		<h2>Transition</h2>
+        <h2>Matrix</h2>
+        <style>
+            #matrix > div {
+                position: absolute;
+                left: 7%;
+                top: 0%;
+                width: 100%;
+                height: 95%;
+                background-image: url("pictures/wars_tm_black.png");
+            }
+        </style>
+    </section>
+	
+	<section class="slide">
+        <h2>Centrality measure</h2>
+        <i>How likely people coding in one language would switch to another one ?<br></i>        
+        <br>
+            <ul>
+                <li>Find the importance of vertices in our language graph</li>        
+                <li>Compute the eigenvector centrality of the transition matrix</li>        
+            </ul>    
+    </section>
+
+    <section class="slide">
+        <h2>Power iteration</h2>
+        <i>Algorithm to calculate the dominant eigenvector of a well conditioned matrix<br></i>
+        <br>
+        <p>Repeat until convergence :</p>            
+        <p>$$x_{i+1} = P\cdot x_i$$</p>
+        <p>x : stationary distribution of the Markovian process associated with P</p>            
+        <p>Convergence is guaranteed if P is tochastic, irreducible and acyclic</p>
+    </section>
+
+    <section class="slide">
+            <h2>Marvovian Process</h2>
+            <i>Make the Transition Matrix well conditioned for power iteration<br></i>
+            <br>
+            <ul>
+                <li>Make P stochastic : $$\sum_j p_{ij}=1$$</li>
+                <li>P already irreducible : $$p_{ij} \geq 0 ~~~~~\forall i,j$$</li>
+            </ul>
+        </section>
+        
+        <section class="slide">
+            <h2>Google in 1998</h2>
+            <i>Make the transition matrix well conditioned<br></i>
+            <br>
+            <p>Larry and Sergey had exactly the same objective with the WWW matrix.</p>
+            <p>C<sub>ij</sub>  is 1 if web page i links to j and 0 otherwise.</p>
+            <p>They invented a trick to make C well conditioned.</p>
+            <p>They called it <a href="http://snap.stanford.edu/class/cs246-2013/slides/09-pagerank.pdf">PageRank</a>.</p>
+        </section>
+        
+        <section class="slide">
+            <h2>GitHub "LanguageRank"</h2>
+            <p>Update the transition matrix as follows :</p>
+            <p>$$
+    P = \beta P + \frac{1-\beta}{N}\left( \begin{array}{cccc}
+    1 & 1 & ... & 1 \\
+    1 & 1 & ... & 1 \\
+    ... & ... & \ddots & ... \\
+    1 & 1 & ... & 1 \\ \end{array} \right)
+    $$</p>
+            <p>N : number of languages</p>
+            <p>β : dampening or random walk factor, usually 0.85</p>
+        </section>
+
+    <section class="slide">
+        <h2>Who is the most popular on GitHub ?</h2>
+        <table>
+          <tr>
+            <th>Rank</th>
+            <th>Language</th>
+            <th>popularity, %</th>
+            <th>source code, %</th>
+          </tr>
+          <tr>
+            <td>1.</td>
+            <td>Python</td>
+            <td>17.7</td>
+            <td>11.0</td>
+          </tr>
+          <tr>
+            <td>2.</td>
+            <td>Java</td>
+            <td>15.5</td>
+            <td>16.2</td>
+          </tr>
+          <tr>
+            <td>3.</td>
+            <td>C</td>
+            <td>10.0</td>
+            <td>16.8</td>
+          </tr>
+          <tr>
+            <td>4.</td>
+            <td>C++</td>
+            <td>9.9</td>
+            <td>12.3</td>
+          </tr>
+          <tr>
+            <td>5.</td>
+            <td>PHP</td>
+            <td>8.8</td>
+            <td>23.8</td>
+          </tr>
+          <tr>
+            <td>6.</td>
+            <td>Ruby</td>
+            <td>8.7</td>
+            <td>2.5</td>
+          </tr>
+        </table>
+        <p>GitHub annual <a href="https://octoverse.github.com/">stats</a></p>
+     </section>
+	
+	<section class="slide" id="matrix-sorted">
+        <div class="vista"></div>
+		<h2>Transition</h2>
+        <h2>Matrix</h2>
+        <h2>Sorted</h2>
+        <style>
+            #matrix-sorted > div {
+                position: absolute;
+                left: 7%;
+                top: 0%;
+                width: 100%;
+                height: 95%;
+                background-image: url("pictures/wars_tms_black.png");
+            }
+        </style>
+	</section>
+	
+	<section class="slide" id="stack">
+        <div class="vista"></div>
+		<h2>Language</h2>
+        <h2>Competition</h2>
+        <style>
+            #stack > div {
+                position: absolute;
+                left: 15%;
+                top: 7%;
+                width: 100%;
+                height: 95%;
+                background-image: url("pictures/wars_stack_black.png");
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>Read this on your device</h2>
+        <div class="vista center" id="qrcode"></div>
+        <br>
+        <p><a href="https://warenlg.github.io/pydays-vienna-2018/">warenlg.github.io/pydays-vienna-2018/</a></p>
+        <style>
+            #qrcode {
+                width: 300px;
+                height: 300px;
+                background-image: url("pictures/qrcode.png");
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>Thank You</h2>
+        <ul class="no-bullets">
+            <li><i class="fa fa-envelope"></i> <a href="mailto://waren@sourced.tech">waren@sourced.tech</a></li>
+            <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/warenlg">warenlg</a></li>
+            <li><i class="fa fa-github"></i> <a href="https://github.com/warenlg">warenlg</a></li>
+            <li><i class="fa fa-rss"></i> <a href="https://blog.sourced.tech">blog</a></li>
+        </ul>
+    </section>
+
+
+	<div class="progress"></div>
+
+	<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+	<script src="shower/shower.min.js"></script>
+	<script async src="https://use.fontawesome.com/72adc0539b.js"></script>
+	<script>
+    function fullscreen() {
+        if (!document.fullscreenElement && !document.mozFullScreenElement &&
+			!document.webkitFullscreenElement) {
+            var body = document.getElementsByTagName("html")[0];
+            if (body.requestFullscreen) {
+                body.requestFullscreen();
+            } else if (body.mozRequestFullScreen) {
+                body.mozRequestFullScreen();
+            } else if (body.webkitRequestFullScreen) {
+                body.webkitRequestFullScreen();
+            }
+            document.getElementById("fullscreen").title = "Return";
+        } else {
+            if (document.cancelFullScreen) {
+                document.cancelFullScreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            }
+            document.getElementById("fullscreen").title = "Go fullscreen";
+        }
+    }
+    </script>
+</body>
+</html>
+
+
