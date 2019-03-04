@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>How AI can help programmers write better code ?</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen-16x10.css">
+</head>
+<body class="shower list">
+
+	<header class="caption">
+		<button type="button" id="fullscreen" title="Go fullscreen" onclick="fullscreen()"><i class="fa fa-arrows-alt"></i></button>
+		<h1>How AI can help programmers write better code ?</h1>
+		<p>Waren Long, <a href="https://sourced.tech">source{d}</a>.</p>
+	</header>
+
+	<style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        -webkit-full-screen {
+            z-index: 1;
+            height: 100%;
+        }
+        :-webkit-full-screen .full section {
+            /* fix buggy Chrome offsets */
+            margin-left: -1px !important;
+            margin-top: -1px !important;
+        }
+        @media not print {
+            .slide {
+                color: white;
+                background: black;
+            }
+            .slide h2 {
+                color: #bababa;
+            }
+            .slide h3 {
+                color: #bababa;
+                font-size: 35px;
+                margin-top: -10px;
+            }
+        }
+        #fullscreen {
+            float: right;
+            height: 48px;
+            width: 48px;
+            background: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            border: none;
+            color: #3c3d40;
+            position: fixed;
+            right: 20px;
+        }
+        #fullscreen:hover {
+            color: #bababa;
+        }
+        #fullscreen:focus {
+            outline: none;
+        }
+        #fullscreen > i {
+            font-size: 36px;
+            text-align: center;
+        }
+        .slide p {
+            line-height: 1.25;
+        }
+        .slide::after {
+            display: none;
+        }
+        .no-link {
+            background: none !important;
+        }
+        .center {
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h2.bottom {
+            position: absolute;
+            bottom: 50px;
+        }
+        .important {
+            color: red;
+        }
+        .mono {
+            font-family: monospace;
+        }
+        .success {
+            color: green;
+        }
+        .vista {
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+        }
+        .vista-cover {
+            background-size: cover !important;
+        }
+        i.fa {
+            font-style: normal;
+        }
+        ul.no-bullets > li::before {
+            display: none;
+            text-indent: 0;
+        }
+        ul.no-bullets > li {
+            text-indent: 0;
+        }
+		code.inline:before, code.inline-no-offset:before {
+			display: none;
+		}
+		code.inline, code.inline-no-offset {
+			padding: 0;
+		}
+		code.inline-no-offset {
+			margin-left: 0 !important;
+			padding-left: 50px !important;
+        }
+        .white {
+            color: white !important;
+        }
+        .black {
+            color: #202020 !important;
+        }
+        .source-web {
+            position: absolute;
+            bottom: 20px !important;
+            right: 100px !important;
+            font-size: 20px;
+        }
+        .source{
+            position: absolute;
+            bottom: 20px !important;
+            right: 100px !important;
+            line-height: 45px !important;
+            font-size: 20px;
+        }
+		.part-teaser {
+			text-align: center;
+			vertical-align: middle;
+			line-height: 400px !important;
+        }
+        .shout-smaller > h2{
+            font-size: 90px !important;
+        }
+        .shout-smaller > h3{
+            font-size: 50px !important;
+        }
+        .column {
+            float: left;
+            width: 50%;
+        }
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
+    
+    <section class="slide vista vista-cover" id="cover">
+        <h2 class="black">How AI can help programmers write<br>better code ?</h2>
+        <p class="black">AI & Society - March 4, 2019</p>
+        <p class="black">Waren Long</p>
+        <p><a href="https://sourced.tech">source{d}</a></p>
+
+        <style> 
+            #cover h2 {
+                margin:-55px 0 0;
+                text-align:center;
+                font-size:45px;
+            }
+            #cover p {
+                margin: 40px 0 0;
+                text-align:center;
+                font-style:italic;
+                font-size:20px;
+            }
+            #cover {
+                background: url("pictures/cover.png") black;
+                background-position-x: 68% !important;
+            }
+            #cover > h2 {
+                margin-bottom: 20px;
+            }
+            #cover > p {
+                font-size: 24px;
+                font-weight: bold;
+                margin: 0;
+            }
+            #cover > p:nth-of-type(1) {
+                margin-bottom: 257px;
+            }
+            #cover > p:nth-of-type(2) {
+                transform: rotate(-4deg) translateX(30px);
+            }
+            #cover > p:nth-of-type(3) {
+                transform: rotate(-4deg) translateX(30px);
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+            <h2>About source{d}</h2>
+            <ul>
+                <li>35 software engineers</li>
+                <li>Offices in Madrid and San Francisco but 100% remote</li>
+                <li>Large scale code analysis and 2 main directions :</li>
+                    <ol>
+                        <li><b>Code as Data</b> to turn code into actionable insights</li>
+                        <li><b>ML on Code</b> with assisted code review</li>
+                    </ol>
+            </ul>
+            <p class="source-web"><a href="https://sourced.tech/">sourced.tech</a></p>
+    </section>
+
+    <section class="slide vista" id="plan">
+        <h2>Plan</h2>
+        <ol>
+            <li>MLonCode, Origins & Motivation</li>
+            <li>Lookout, a Framework for Assisted Code Review</li>
+            <li>style-analyzer, an Adaptative Code Formatter</li>
+        </ol>
+        <figure>
+			<img class="cover" src="pictures/plan.png" alt="Cover picture">
+		</figure>
+        <style>
+            #plan span {
+                position: relative;
+                top: 2px;
+            }
+            #plan img {
+                top: 55%;
+            }
+        </style>
+    </section>
+
+    <section class="slide part">
+        <h2 class="shout shout-smaller">MLonCode</h2>
+    </section>
+
+    <section class="slide" id="workflow">
+        <h2>Software Development Workflow</h2>
+        <img src="pictures/workflow3.png" class="workflow">
+        <style>
+            .workflow {
+                position: absolute;
+                top: 200px;
+                width: 800px;
+            }
+            #workflow ul {
+                margin: 170px 0 0;
+            }
+        </style>
+        <ul>
+            <li>5h/week, 13% of coding time, generally done by senior developers</li>
+            <li>72% of developers work with blocking code reviews</li>
+            <li>45% of developers lack time to review code</li>
+            <li>Stricter code reviews lead to more time delivering new features instead of fixing bugs.</li>
+        </ul>
+        <p class="source-web"><a href="https://www.codacy.com/blog/10-facts-about-code-reviews-and-quality/">codacy.com/blog</a></p>
+    </section>
+
+    <section class="slide">
+        <h2>At Google</h2>
+        <ul>
+            <li>25,000 developers</li>
+            <li>20,000 code reviews per workday</li>
+            <li>4h of average latency for the entire review process</li>
+            <li>15% of comments indicate a possible defect</li>
+        </ul>
+        <p class="source"><a href="https://sback.it/publications/icse2018seip.pdf">Modern Code Review: A Case Study at Google</a><br>&emsp; A. Bacchelli et al. 2018</p>
+                          <!-- <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2015/05/PID3556473.pdf">Code Reviews Do Not Find Bugs </a><br>&emsp; J. Tilford, 2015</p> -->
+    </section>
+
+    <section class="slide">
+        <h2>PR Review Comments on GitHub by Topic</h2>
+        <img src="pictures/pr_comments_topics2.png" class="pr-comments">
+        <style>
+            .pr-comments {
+                position: absolute;
+                top: 210px;
+                width: 600px;
+            }
+        </style>
+        <p class="source-web">dataset extracted from <a href="https://www.gharchive.org/">gharchive.org</a> , January 2015</p>
+    </section>
+
+    <section class="slide" id="ml-perspective">
+        <h2>The Machine Learning Perspective</h2>
+        <h3>The Alternative Hypothesis</h3>
+        <p><i>"Programming languages are inherently harder to write and read... so programmers deliberately write code as <b>unsurprising</b> as possible."</i></p>
+        <p><i>"Code (in all languages) is more predicatble than natural language because it more <b>technical</b> and difficult to learn."</i></p>
+        <p class="source"><a href="http://earlbarr.com/publications/naturalness_cacm.pdf">On the Naturalness of Software</a><br>&emsp; P. Devanbu et al. 2016</p>
+        <style>        
+            #ml-perspective h3 {
+                    margin-bottom: 20px;
+                }
+        </style>
+    </section>
+
+    <section class="slide" id="ml-perspective">
+        <h2>The Machine Learning Perspective</h2>
+        <h3>Software is bimodal</h3>
+        <p><i>"Source code is bimodal: it combines a formal algorithmic channel and a natural language channel of identifiers and comments. Because the two channels interact, [...] bimodality is a natural fit for machine learning."</i></p>
+        <p class="source"><a href="https://miltos.allamanis.com/publicationfiles/dash2018refinym/dash2018refinym.pdf">RefiNym: Using Names to Refine Types</a><br>&emsp; E. Barr et al, 2018</p>
+        <!-- <p><i>"Promising results on real world data & profitable to model source code and NL together. Multiplicative combination of modalities is necessary. Need for better, curated datasets to advance the quality of the bimodal models of source code & NL."</i></p> -->
+        <!-- <p class="source"><a href="https://www.research.ed.ac.uk/portal/files/23728271/allamanis15.pdf">Bimodal Modelling of Source Code and Natural Language</a><br>&emsp; M. Allamanis et al, 2015</p> -->
+    </section>
+    
+    <section class="slide part">
+            <h2 class="shout shout-smaller">Lookout</h2>
+    </section>
+    
+    <section class="slide">
+            <h2>When to help ?</h2>
+            <div class="row">
+                <div class="column">
+                    <ul>
+                        <li>While you type = IDE</li>
+                        <li>While you check = CI</li>
+                        <li class="li-selected">While you review = PR</li>
+                        <li>Periodically, asynchronously</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <ul>Pros and Cons :
+                            <li class="pros">Part of the workflow</li>
+                            <li class="pros">More time to run the models</li>
+                            <li class="pros">Nice UI</li>
+                            <li class="cons">High precision score required</li>
+                            <li class="cons">Longer feedback loop</li>
+                    </ul>
+                </div>
+            </div>
+            <style>
+                .pros {
+                    color: green;
+                }
+                .pros::before {
+                    content: "+" !important;
+                    color: green;
+                }
+                .cons {
+                    color: red;
+                }
+                .cons::before {
+                    content: "+" !important;
+                    color: red;
+                }
+                .li-selected {
+                    list-style: none;
+                }
+                .li-selected::before {
+                    content: "→" !important;
+                    color: white !important;
+                    opacity: 1 !important;
+                }
+                .li-selected::after {
+                    content: "←";
+                    color: white;
+                    margin-left: 0.5em;
+                }
+            </style>
+    </section>
+
+    <section class="slide">
+        <h2>Goals</h2>
+        <ul>
+            <li>Assisted code review platform</li>
+            <li>Tight git/GitHub integration</li>
+            <li>Implementation language agnostic</li>
+            <li>Batteries included</li>
+        </ul>
+    </section>
+
+    <style>
+            .lookout-comment {
+                position: absolute;
+                top: 230px;
+                left: 90px;
+                width: 800px;
+                object-fit: cover;
+            }
+    </style>
+
+    <section class="slide">
+            <h2>Example of Lookout Comment on GitHub</h2>
+            <img src="pictures/lookout_stg_comment.png" class="lookout-comment">
+    </section>
+
+        <section class="slide">
+                <h2>Architecture</h2>
+                <img src="pictures/lookout_arch.svg" class="lookout-diagram">
+                <style>
+                    .lookout-diagram {
+                        position: absolute;
+                        width: 800px;
+                        top: 250px;
+                        left: 100px;
+                    }
+                </style>
+            </section>
+      
+    <style>
+        .lookout-events {
+            position: absolute!important;
+            width: 600px !important;
+            top: 210px!important;
+            left: 150px!important;
+        }
+    </style>
+            <section class="slide">
+                <h2>Push event</h2>
+                <img src="pictures/push_event_black.png" class="lookout-events">
+            </section>
+
+            <section class="slide">
+                <h2>Review event</h2>
+                <img src="pictures/review_event_black.png" class="lookout-events">
+            </section>
+
+            <!-- <section class="slide">
+                <h2>Push event</h2>
+                <img src="pictures/lookout_comm_1.svg" class="lookout-diagram">
+            </section>
+        
+            <section class="slide">
+                <h2>Push event</h2>
+                <img src="pictures/lookout_comm_2.svg" class="lookout-diagram">
+            </section>
+        
+            <section class="slide">
+                <h2>Push event</h2>
+                <img src="pictures/lookout_comm_3.svg" class="lookout-diagram">
+            </section>
+        
+            <section class="slide">
+                <h2>Push event</h2>
+                <img src="pictures/lookout_comm_4.svg" class="lookout-diagram">
+            </section>
+        
+            <section class="slide">
+                <h2>Push event</h2>
+                <img src="pictures/lookout_comm_5.svg" class="lookout-diagram">
+            </section>
+        
+            <section class="slide">
+                <h2>Push event</h2>
+                <img src="pictures/lookout_comm_6.svg" class="lookout-diagram">
+            </section> -->
+        
+            <!-- <section class="slide">
+                <img src="pictures/magic.gif" class="fullslide">
+            </section> -->
+        
+            <!-- <section class="slide">
+                <h2>Push event</h2>
+                <img src="pictures/lookout_comm_7.svg" class="lookout-diagram">
+            </section>
+        
+            <section class="slide">
+                <h2>PR event</h2>
+                <img src="pictures/lookout_comm_8.svg" class="lookout-diagram">
+            </section>
+        
+            <section class="slide">
+                <h2>PR event</h2>
+                <img src="pictures/lookout_comm_9.svg" class="lookout-diagram">
+            </section> -->
+    
+            <section class="slide part">
+        <h2 class="shout shout-smaller">style-analyzer</h2>
+    </section>
+
+    <section class="slide">
+        <h2>Approach</h2>
+        <ol>
+            <li>Parse to intermediate representation</li>
+            <li>Train Decision Tree Forest</li>
+            <li>Extract production rules</li>
+        </ol>
+    </section>
+    
+    
+    <section class="slide" id="representations">
+        <h2>Representations of Source Code</h2>
+        <img src="pictures/snippet_ast2.png" class="representations">
+        <style>
+            .representations {
+                position: absolute;
+                right:100px;
+                top: 210px;
+                width: 400px;
+            }
+            #representations > p:nth-of-type(1) {
+                margin-top: 65px;
+                margin-left: 30px;
+            }
+            #representations > p:nth-of-type(2) {
+                margin-top: 130px;
+                margin-left: 30px;
+            }
+        </style>
+        <p>Token-level models<br>&rarr; Raw content</p>
+        <p>Syntactic models<br>&rarr; Abstract Syntax Tree (AST)</p>
+        <!-- <p class="source"><a href="http://www.cs.wm.edu/~mtufano/publications/C9.pdf">Deep Learning Similarities from Different Representations of Source Code</a><br>&emsp; M. Di Penta et al. 2018</p> -->
+    </section>
+    
+    <!-- <section class="slide">
+        <h2>  </h2>
+        <a href="https://doc.bblf.sh"><img class="center" src="pictures/bblfsh-logo.png"></a>
+        <div class="vista center" id="bblfsh-arch"></div>
+        <style>
+            #bblfsh-arch {
+                width: 600px;
+                height: 100px;
+                background-image: url("pictures/bblfsh-arch-black.png");
+            }
+            @media not print {
+                #bblfsh-arch {
+                    background-image: url("pictures/bblfsh-arch-white.png");
+                }
+            }
+        </style>
+    </section> -->
+    
+    <section class="slide">
+        <h2>Babelfish, a Universal Code Parser</h2>
+        <ul>
+            <li>Aims to parse any file in any language</li>
+            <li>Extracts ASTs and converts them to <b>uniform</b> structures</li>
+            <li>Standard node properties</li>
+            <li>Client/server system that supports XPath queries</li>
+            <li>4 traversal orders</li>
+        </ul>
+        <p class="source-web"><a href="https://doc.bblf.sh/architecture.html">doc.bblf.sh/architecture</a></p>
+    </section>
+
+    <section class="slide" id="classes">
+        <h2>Classes Predicted by style-analyzer</h2>
+        <ul>
+            <li>␣ &emsp; whitespace</li>
+            <li>→ &emsp; tabulation</li>
+            <li>↲ &emsp; newline</li>
+            <li>␣+/- &emsp; whitespace indentation increase/decrease</li>
+            <li>→+/- &emsp; tabulation indentation increase/decrease</li>
+            <li>'/" &emsp; single/double quotes</li>
+            <li>∅ &emsp; empty gaps between non-label nodes, NOOP</li>
+        </ul>
+        <style>
+                #classes li:before {
+                    content: "";
+                }
+            </style>
+    </section>
+
+    
+    <!-- <section class="slide">
+        <h2>Representations of Source Code</h2>
+        <p>The Alternative Hypothesis :</p>
+        <p><i>"Programming languages are inherently harder to write and read... so programmers deliberately write code as <b>unsurprising</b> as possible."</i></p>
+        <p><i>"Code (in all languages) is more predicatble than natural language because it more <b>technical</b> and difficult to learn."</i></p>
+        <p class="source"><a href="http://www.cs.wm.edu/~mtufano/publications/C9.pdf">Deep Learning Similarities from Different Representations of Source Code</a><br>&emsp; M. Di Penta et al. 2018</p>
+    </section> -->
+    
+    
+    
+    <section class="slide">
+        <h2>Mixed representation</h2>
+        <p>AST-augmented token stream<br>with virtual nodes</p>
+        <img src="pictures/vnodes.svg" id="vnodes" class="diagram diagram-right">
+        <pre><code>a = b * 2</code></pre>
+        <ul>Feature extraction :
+            <li>Window size of 10 tokens</li>
+            <li>2 levels up in the AST hierarchy</li>
+        </ul>
+        <style>
+            .diagram {
+                height: 300px;
+            }
+            .diagram-right {
+                position: absolute;
+                top: 207px;
+                right: 80px;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>Annotated Code Snippet with Style Mistakes</h2>
+        <img src="pictures/snippet_style_black.png" class="lookout-events">
+        <style>
+            .lookout-events {
+                position: absolute;
+                width: 800px;
+                top: 250px;
+                left: 90px;
+            }
+        </style>
+    </section>
+    
+    <!-- <section class="slide">
+        <h2>Machine Learning</h2>
+        <img src="pictures/features.svg" class="diagram center">
+    </section> -->
+    
+    <section class="slide">
+            <h2>Explainability is key</h2>
+            <ul>
+                <li>Build trust with the users</li>
+                <li>Prefer interpretable output with human-readble decisions</li>
+                <li>Decision Tree Forest models</li>
+                <li>Optimization to limit the number and length of the rules </li>
+            </ul>
+            <p class="source"><a href="https://www.ijcai.org/Proceedings/87-1/Papers/063.pdf">Generating Production Rules From Decision Trees</a><br>&emsp; J.R. Quinlan, 1987</p>
+    </section>
+
+    <section class="slide">
+        <h2>Rules</h2>
+        <img src="pictures/rules.svg" class="diagram diagram-right">
+        <ul>
+            <li><code>a&le;5 Λ b&le;1 Λ <span class="oline">c</span> ⇒ &alpha;</code></li>
+            <li><code>a&le;5 Λ 1&lt;b&lt;4 ⇒ &beta;</code></li>
+            <li><code>5&lt;a&lt;10 Λ <span class="oline">c</span> ⇒ &gamma;</code></li>
+            <li><code>a&gt;5 Λ c Λ b&gt;2 ⇒ &alpha;</code></li>
+        </ul>
+        <style>
+            .oline {
+                text-decoration: overline;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>Machine Learning</h2>
+        <ul>
+            <li>Feature selection (univariate, ANOVA F-criterion)</li>
+            <li>Hyperparameter optimization (Bayesian)</li>
+            <li>Evaluation : 80% + 20% split</li>
+        </ul>
+    </section>
+    
+    <!-- <section class="slide rules-opt">
+            <h2>Rules optimization</h2>
+            <pre><code><span class="bad">a&gt;5</span> Λ c Λ b&gt;2 Λ <span class="oline">d</span> Λ <span class="bad">a&gt;10</span> ⇒ &alpha;</code><span class="opt-desc">(merge)</span><br>
+                <code><span class="good">a&gt;10</span> Λ c Λ <span class="bad">b&gt;2</span> Λ <span class="oline">d</span> ⇒ &alpha;</code><span class="opt-desc">(redundant)</span><br>
+                <code>a&gt;10 Λ c Λ <span class="oline bad">d</span> ⇒ &alpha;</code><span class="opt-desc">(feature exclusion)</span><br>
+                <code>a&gt;10 Λ c ⇒ &alpha;</code></pre>
+                <h4 class="rules-opt-result">Result</h4>
+                <ul>
+                    <li>-40% ~ -60% less attributes</li>
+                    <li>-30% ~ -50% less rules</li>
+                </ul>
+                <style>
+                    .rules-opt code {
+                        display: inline-block !important;
+                        width: auto !important;
+                    }
+                    .bad {
+                        color: coral;
+                    }
+                    .good {
+                        color: lightgreen;
+                    }
+            .opt-desc {
+                float: right;
+                font-family: "Source Sans Pro", sans-serif;
+            }
+            .rules-opt-result {
+                margin-bottom: 0;
+            }
+        </style>
+    </section>
+     -->
+    <!-- <section class="slide rules-opt">
+        <h2>Rules optimization</h2>
+        <pre><code><span class="bad">a&gt;5</span> Λ c Λ b&gt;2 Λ <span class="oline">d</span> Λ <span class="bad">a&gt;10</span> ⇒ &alpha;</code><span class="opt-desc">(merge)</span><br>
+            <code><span class="good">a&gt;10</span> Λ c Λ <span class="bad">b&gt;2</span> Λ <span class="oline">d</span> ⇒ &alpha;</code><span class="opt-desc">(redundant)</span><br>
+            <code>a&gt;10 Λ c Λ <span class="oline bad">d</span> ⇒ &alpha;</code><span class="opt-desc">(feature exclusion)</span><br>
+            <code><span class="bad">a&gt;10 Λ c ⇒ &alpha;</span></code><span class="opt-desc">(confidence threshold)</span></pre>
+            <h4 class="rules-opt-result">Result</h4>
+            <ul>
+                <li>-40% ~ -50% less rules @93%</li>
+            </ul>
+        </section> -->
+        
+        <!-- <section class="slide">
+            <h2>Inference</h2>
+            <ol>
+                <li>Apply rules
+                    <ul>
+                        <li>Fixes to old code?</li>
+                        <li>AST breakage?</li>
+                        <li>Identification?</li>
+                    </ul>
+                </li>
+                <li>Generate code
+                    <ul>
+                        <li>Indentation?</li>
+                        <li>Multiple lines?</li>
+                    </ul>
+                </li>
+            </ol>
+            <img src="pictures/jackie_chan.svg" class="jackie">
+            <style>
+                .jackie {
+                    position: absolute;
+                    right: 100px;
+                    bottom: 81px;
+                    width: 400px;
+                    opacity: 0.7;
+                }
+            </style>
+        </section> -->
+        
+        <section class="slide">
+            <h2>Evaluation</h2>
+            <div id="eval-legend">
+                <ul>
+                    <li><span>&#x25A0;</span> Precision</li>
+                    <li><span>&#x25A0;</span> PredR</li>
+                </ul>
+                ~95% weighted avg.
+            </div>
+            <img src="pictures/evaluation.svg" class="eval">
+        <style>
+            #eval-legend {
+                float: right;
+                margin-top: 50px;
+                display: inline-block;
+            }
+            .eval {
+                position: absolute;
+                left: 50px;
+                top: 230px;
+            }
+            #eval-legend li::before {
+                content: "";
+            }
+            #eval-legend li:nth-child(1) > span {
+                color: coral;
+            }
+            #eval-legend li:nth-child(2) > span {
+                color: lightgreen;
+            }
+        </style>
+    </section>
+    
+    <!-- <section class="slide">
+        <h2>Evaluation</h2>
+        <ul>
+            <li>170 handcrafted errors</li>
+            <li>2 projects</li>
+            <li>95% precision @50% PredR</li>
+        </ul>
+    </section> -->
+    
+    <!-- <section class="slide">
+        <h2 class="shout">We don't test the real behavior</h2>
+    </section> -->
+    
+    <section class="slide">
+        <h2>Evaluation improvements</h2>
+        <ul>
+            <li>Extend classes</li>
+            <li>Test the real behaviour of users</li>
+            <li>Random mutations</li>
+            <li>Extract from commits</li>
+        </ul>
+    </section>
+    
+    <!-- <section class="slide part">
+        <h2 class="shout shout-smaller">Demo</h2>
+    </section> -->
+
+    <section class="slide" id="applications">
+        <h2>Code as Data and MLonCode Applications</h2>
+        <ul>
+            <li>Clone Detection :&emsp; <a href="https://github.com/src-d/gemini">src-d/gemini</a></li>
+            <li>Topic Modeling :&emsp; <a href="https://github.com/src-d/vecino">src-d/vecino</a></li>
+            <li>Developer Similarity :&emsp; <a href="https://github.com/src-d/dev-similarity">src-d/dev-similarity</a></li>
+            <li>Git Repository Analysis :&emsp; <a href="https://github.com/src-d/gitbase">src-d/gitbase</a>&emsp; and &emsp;<a href="https://github.com/src-d/hercules">src-d/hercules</a>
+                <ul>
+                    <li> Security
+                    <li> Productivity and Collaboration
+                    <li> Talent Management
+                </ul>
+            </li>
+            <!-- <li>Code Suggestion :<br>&emsp; <a href="https://homepages.inf.ed.ac.uk/csutton/publications/accurate-method-and-class.pdf">Suggesting Accurate Method and Class Names</a>, C. Sutton et al. 2015</li>
+            <li>Topic Modeling :<br>&emsp; <a href="https://arxiv.org/pdf/1704.00135.pdf">Topic modeling of public repositories at scale</a>, V. Markovtsev et al. 2017</li>
+            <li>Clone Detection :<br>&emsp; <a href="http://janvitek.org/pubs/oopsla17b.pdf">DéjàVu: A Map of Code Duplicates on GitHub</a>, Vitek et al. 2017</li>
+            <li>Program Repair :<br>&emsp; <a href="https://hal.archives-ouvertes.fr/hal-01321615/document">Astor: A program repair library for java</a>, M. Monperrus et al. 2016</li> -->
+        </ul>
+        <!-- <style>
+            #applications li {
+                line-height:40px;
+            }
+        </style> -->
+        <p class="source-web"><a href="https://github.com/src-d/awesome-machine-learning-on-source-code">src-d/awesome-mloncode</a></p>
+    </section>
+    
+    <!-- <section class="slide">
+        <h2>Summary</h2>
+        <ul>
+            <li>Assisted code review + Lookout = ♥</li>
+            <li>style-analyzer is fun</li>
+            <li>#MLonCode is dope</li>
+        </ul>
+    </section> -->
+    
+	<section class="slide">
+        <h2>Thank you</h2>
+        <div class="row">
+            <div class="column">
+                <p>Contacts :</p>
+                <!-- <p>Slides available at <a href="https://warenlg.github.io/ai-society-paris-2019/#">warenlg.github.io/ai-society-paris-2019</a></p> -->
+                <ul class="no-bullets">
+                    <li><i class="fa fa-envelope"></i> <a href="mailto://waren@sourced.tech">waren@sourced.tech</a></li>
+                    <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/warenlg">warenlg</a></li>
+                    <li><i class="fa fa-github"></i> <a href="https://github.com/warenlg">warenlg</a></li>
+                <li><i class="fa fa-rss"></i> <a href="https://sourced.tech/">sourced.tech</a></li>
+            </ul>
+            </div>
+            <div class="column">
+                <p>Materials :</p>
+                <!-- <p>Slides available at <a href="https://warenlg.github.io/ai-society-paris-2019/#">warenlg.github.io/ai-society-paris-2019</a></p> -->
+                <ul class="no-bullets">
+                    <li><a href="https://warenlg.github.io/ai-society-2019-paris/">slides</a></li>
+                    <li><a href="docs.sourced.tech/lookout">src-d/lookout</a></li>
+                    <li><a href="https://github.com/src-d/style-analyzer">src-d/style-analyzer</a></li>
+                    <!-- <li><a href="https://github.com/src-d/awesome-machine-learning-on-source-code">src-d/awesome-mloncode</a></li> -->
+                    <li><a href="https://doc.bblf.sh/">babelfish</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+	<div class="progress"></div>
+
+	<script src="shower/shower.min.js"></script>
+	<script async src="https://use.fontawesome.com/72adc0539b.js"></script>
+	<script>
+    function fullscreen() {
+        if (!document.fullscreenElement && !document.mozFullScreenElement &&
+			!document.webkitFullscreenElement) {
+            var body = document.getElementsByTagName("html")[0];
+            if (body.requestFullscreen) {
+                body.requestFullscreen();
+            } else if (body.mozRequestFullScreen) {
+                body.mozRequestFullScreen();
+            } else if (body.webkitRequestFullScreen) {
+                body.webkitRequestFullScreen();
+            }
+            document.getElementById("fullscreen").title = "Return";
+        } else {
+            if (document.cancelFullScreen) {
+                document.cancelFullScreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            }
+            document.getElementById("fullscreen").title = "Go fullscreen";
+        }
+    }
+    </script>
+</body>
+</html>
