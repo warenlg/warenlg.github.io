@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">width: 100%;
+<html lang="en">
 <head>
 	<title>Empower developers with ML-assisted code review</title>
 	<meta charset="utf-8">
@@ -163,7 +163,7 @@ left: -1px !important;            margin-
     
     <section class="slide vista vista-cover" id="cover">
         <h2 class="black">Empower developers with ML<br>assisted code review</h2>
-        <p class="black">AI Meetup - April 18, 2019</p>
+        <p class="black">AI Meetup - April, 18<sup>th</sup>, 2019</p>
         <p class="black">Waren Long</p>
         <p><a href="https://sourced.tech">source{d}</a></p>
 
@@ -208,8 +208,7 @@ left: -1px !important;            margin-
             <ul>
                 <li>35 software engineers</li>
                 <li>Offices in Madrid and San Francisco but fully remote</li>
-                <li>2 main directions :</li>
-                    <ol>
+                <li>Activities:<ol>
                         <li><b>Code as Data</b> to turn code into actionable insights</li>
                         <li><b>ML on Code</b> e.g. assisted code review</li>
                     </ol>
@@ -276,16 +275,17 @@ left: -1px !important;            margin-
     </section>
 
     <section class="slide">
-        <h2>PR Review Comments on GitHub by Topic</h2>
-        <img src="pictures/review_comments.svg" class="pr-comments">
+        <h2>25 million PR Review Comments on GitHub</h2>
+        <img src="pictures/review_comments_vadim.svg" class="pr-comments">
         <style>
             .pr-comments {
                 position: absolute;
                 top: 210px;
-                width: 600px;
+                left: 140px;
+                width: 650px;
             }
         </style>
-        <p class="source-web"><a href="https://github.com/src-d/datasets/tree/master/ReviewComments">dataset</a> collected from <a href="https://www.gharchive.org/">gharchive.org</a></p>
+        <p class="source-web"><a href="https://github.com/src-d/datasets/tree/master/ReviewComments">dataset</a></p>
     </section>
 
     <section class="slide" id="ml-perspective">
@@ -401,7 +401,7 @@ left: -1px !important;            margin-
                     .lookout-diagram {
                         position: absolute;
                         width: 800px;
-                        top: 220px;
+                        top: 200px;
                         left: 100px;
                     }
                 </style>
@@ -654,7 +654,7 @@ left: -1px !important;            margin-
     </section>
 
     <section class="slide" id="annotated-snippet">
-        <h2>Annotated Code Snippet with Style Mistakes</h2>
+        <h2>Annotated Code Snippet</h2>
         <pre><code><span style="color: darkgreen">&#8709</span>function<span style="color: darkgreen">&#9251</span>classesToArray<span style="color: darkgreen">&#8709</span>(<span style="color: darkgreen">&#9251</span>value<span style="color: darkgreen">&#9251</span>)<span style="color: darkgreen">&#9251</span>{<span style="color: darkgreen">&#8626</span></code>
              <code><span style="color: darkgreen">&#8677</span>   if<span style="color: darkgreen">&#9251</span>(<span style="color: darkgreen">&#9251</span>isArray<span style="color: darkgreen">&#8709</span>(<span style="color: darkgreen">&#9251</span>value<span style="color: darkgreen">&#9251</span>)<span style="color: lightgreen">&#9251</span>)<span style="color: lightgreen">&#9251</span>{<span style="color: red">&#8709</span>return<span style="color: lightgreen">&#9251</span>value<span style="color: lightgreen">&#8709</span>;<span style="color: darkred">&#8709</span>}</code>
              <code>    if<span style="color: darkgreen">&#9251</span>(<span style="color: darkgreen">&#9251</span>typeof<span style="color: darkgreen">&#9251</span>value<span style="color: darkgreen">&#9251</span>===<span style="color: darkgreen">&#9251"</span>string<span style="color: darkgreen">"&#9251</span>)<span style="color: darkgreen">&#9251</span>{<span style="color: darkgreen">&#8626</span></code>

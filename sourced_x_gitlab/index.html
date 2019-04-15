@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Identifying Coding Collaborators at GitLab</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen-16x10.css">
+</head>
+<body class="shower list">
+
+	<header class="caption">
+		<button type="button" id="fullscreen" title="Go fullscreen" onclick="fullscreen()"><i class="fa fa-arrows-alt"></i></button>
+		<h1>Identifying coding collaborators at GitLab</h1>
+		<p>Waren Long, <a href="https://sourced.tech">source{d}</a>.</p>
+	</header>
+
+	<style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        -webkit-full-screen {
+            z-index: 1;
+            height: 100%;
+        }
+        :-webkit-full-screen .full section {
+            /* fix buggy Chrome offsets */
+left: -1px !important;            margin-
+            margin-top: -1px !important;
+        }
+        @media not print {
+            .slide {
+                color: white;
+                background: black;
+            }
+            .slide h2 {
+                color: #bababa;
+            }
+            .slide h3 {
+                color: #bababa;
+                font-size: 35px;
+                margin-top: -10px;
+            }
+        }
+        #fullscreen {
+            float: right;
+            height: 48px;
+            width: 48px;
+            background: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            border: none;
+            color: #3c3d40;
+            position: fixed;
+            right: 20px;
+        }
+        #fullscreen:hover {
+            color: #bababa;
+        }
+        #fullscreen:focus {
+            outline: none;
+        }
+        #fullscreen > i {
+            font-size: 36px;
+            text-align: center;
+        }
+        .slide p {
+            line-height: 1.25;
+        }
+        .slide::after {
+            display: none;
+        }
+        .no-link {
+            background: none !important;
+        }
+        .center {
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h2.bottom {
+            position: absolute;
+            bottom: 50px;
+        }
+        .important {
+            color: red;
+        }
+        .mono {
+            font-family: monospace;
+        }
+        .success {
+            color: green;
+        }
+        .vista {
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+        }
+        .vista-cover {
+            background-size: cover !important;
+        }
+        i.fa {
+            font-style: normal;
+        }
+        ul.no-bullets > li::before {
+            display: none;
+            text-indent: 0;
+        }
+        ul.no-bullets > li {
+            text-indent: 0;
+        }
+		code.inline:before, code.inline-no-offset:before {
+			display: none;
+		}
+		code.inline, code.inline-no-offset {
+			padding: 0;
+		}
+		code.inline-no-offset {
+			margin-left: 0 !important;
+			padding-left: 50px !important;
+        }
+        .white {
+            color: white !important;
+        }
+        .black {
+            color: #202020 !important;
+        }
+        .source-web {
+            position: absolute;
+            bottom: 20px !important;
+            right: 100px !important;
+            font-size: 20px;
+        }
+        .source{
+            position: absolute;
+            bottom: 20px !important;
+            right: 100px !important;
+            line-height: 45px !important;
+            font-size: 20px;
+        }
+		.part-teaser {
+			text-align: center;
+			vertical-align: middle;
+			line-height: 400px !important;
+        }
+        .shout-smaller > h2{
+            font-size: 90px !important;
+        }
+        .shout-smaller > h3{
+            font-size: 50px !important;
+        }
+        .column {
+            float: left;
+            width: 50%;
+        }
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
+
+    <section class="slide" id="cover">
+		<h2>Identifying Coding Collaborators<br>at GitLab</h2>
+        <p>15, April 2019</p>
+        <h3>x</h3>
+        <img src="pictures/sourced-logo.svg" class="sourced-logo">
+        <img src="pictures/gitlab-logo.png" class="gitlab-logo">
+        <style>
+            .sourced-logo {
+                position: absolute;
+                width: 30%;
+                left: 14%;
+                top: 60%;
+				filter: brightness(0.7);
+            }
+            .gitlab-logo {
+                position: absolute;
+                width: 30%;
+                right: 17%;
+                top: 55%;
+				filter: brightness(0.7);
+            }
+            #cover h2 {
+                margin:30px 0 0;
+                color: #bababa;
+                text-align:center;
+                font-size:70px;
+            }
+            #cover h3 {
+                margin:22px 0 0;
+                color: #bababa;
+                text-align:center;
+                font-size:70px;
+            }
+            #cover p {
+                margin:20px 0 0;
+                text-align:center;
+                color:#FFF;
+                font-style:italic;
+                font-size:20px;
+            }
+            #cover p a {
+                color:#FFF;
+            }
+        </style>
+	</section>
+    
+    <!-- <section class="slide vista vista-cover" id="cover">
+        <h2 class="black">Identifying Coding Collaborators<br>at GitLab</h2>
+        <p class="black">April 15, 2019</p>
+        <p class="black">Waren Long</p>
+        <p><a href="https://sourced.tech">source{d}</a></p>
+        <p class="black">x</p>
+        <p><a href="https://docs.gitlab.com/">GitLab</a></p>
+
+        <style> 
+            #cover h2 {
+                margin:-55px 0 0;
+                text-align:center;
+                font-size:45px;
+            }
+            #cover p {
+                margin: 40px 0 0;
+                text-align:center;
+                font-style:italic;
+                font-size:20px;
+            }
+            #cover {
+                background: url("pictures/cover.png") black;
+                background-position-x: 68% !important;
+            }
+            #cover > h2 {
+                margin-bottom: 20px;
+            }
+            #cover > p {
+                font-size: 24px;
+                font-weight: bold;
+                margin: 0;
+            }
+            #cover > p:nth-of-type(1) {
+                margin-bottom: 243px;
+            }
+            #cover > p:nth-of-type(2) {
+                transform: rotate(-4deg) translateX(30px);
+            }
+            #cover > p:nth-of-type(3) {
+                transform: rotate(-4deg) translateX(30px);
+            }
+            #cover > p:nth-of-type(4) {
+                transform: rotate(-4deg) translateX(30px);
+            }
+        </style>
+    </section> -->
+
+    <section class="slide">
+            <h2>About source{d}</h2>
+            <ul>
+                <li>35 software engineers</li>
+                <li>Offices in Madrid and San Francisco but fully remote</li>
+                <li>Activities:</li>
+                    <ol>
+                        <li><b>Code as Data</b> to turn code into actionable insights</li>
+                        <li><b>ML on Code</b> e.g. assisted code review</li>
+                    </ol>
+            </ul>
+            <p class="source-web"><a href="https://sourced.tech/">sourced.tech</a></p>
+    </section>
+
+    <section class="slide vista" id="plan">
+        <h2>Plan</h2>
+        <ol>
+            <li>Input Data</li>
+            <li>Feature Extraction</li>
+            <li>Developer Clustering</li>
+        </ol>
+        <figure>
+			<img class="cover" src="pictures/plan.png" alt="Cover picture">
+		</figure>
+        <style>
+            #plan span {
+                position: relative;
+                top: 2px;
+            }
+            #plan img {
+                top: 55%;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>Input Data</h2>
+        <ul>
+            <li>117 repos <a href="https://gitlab.com/gitlab-org">gitlab.com/gitlab-org/*</a></li>
+            <li>2,956 contributors</li>
+            <li>145 programming languages</li>
+            <li>44K files</li>
+            <li>13M LoC</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>Features</h2>
+        <ol>
+            <li>Commit time series:
+                    <ul>
+                        <li><code>dev1: {day0: 2 commits, day1: 3commits}</code></li>
+                    </ul>
+                </li>
+            <li>Contributions by programming languages (in LoC):
+                <ul>
+                    <li><code>dev1: {Ruby: [431, 737, 420], JS: [318, 119, 26]}</code></li>
+                </ul>
+            </li>
+            <li>Source code identifiers:
+                <ul>
+                    <li>file -> bag of TF-IDF scores of its identifiers</li>
+                </ul>
+            </li>
+        </ol>
+        <p class="source-web">collected with <a href="https://github.com/src-d/hercules">src-d/hercules</a> and <a href="https://github.com/src-d/gitbase">src-d/gitbase</a></p>
+    </section>
+    
+    <section class="slide">
+            <h2>1. Commit Time Series</h2>
+            <img src="pictures/raw-clusters-commits.svg" class="raw-clusters-commits">
+            <img src="pictures/team-clusters-commits.svg" class="team-clusters-commits">
+            <style>
+                .raw-clusters-commits {
+                    position: absolute;
+                    width: 400px;
+                    top: 190px;
+                    left: 100px;
+                }
+                .team-clusters-commits {
+                    position: absolute;
+                    width: 400px;
+                    top: 190px;
+                    right: 100px;
+                }
+            </style>
+    </section>
+
+    <section class="slide">
+            <h2>2. Programming Languages Experience</h2>
+            <img src="pictures/raw-clusters_commits.svg" class="raw-clusters-experience">
+            <img src="pictures/team-clusters_commits.svg" class="team-clusters-experience">
+            <style>
+                .raw-clusters-experience {
+                    position: absolute;
+                    width: 380px;
+                    top: 190px;
+                    left: 90px;
+                }
+                .team-clusters-experience {
+                    position: absolute;
+                    width: 380px;
+                    top: 190px;
+                    right: 90px;
+                }
+            </style>
+    </section>
+
+    
+
+    <section class="slide">
+        <h2>3. Topic Modeling</h2>
+        <style>
+            table {
+                font-size: 18px;
+                border-collapse: collapse;
+            }
+            td, th {
+                text-align: left;
+                padding: 6px;
+            }
+            div {
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+        </style>
+        <div>
+
+        <table>
+            <tr>
+                <th>Topic label</th>
+                <th>Top terms</th>
+            </tr>
+            <tr>
+                <td>Backend frameworks</td>
+                <td><code>servlet</code>, <code>flask</code>, <code>javax</code></td>
+            </tr>
+            <tr>
+                <td>Language detection</td>
+                <td><code>languag</code>, <code>java</code>, <code>linguist</code></td>
+            </tr>
+            <tr>
+                <td>Data mining</td>
+                <td><code>chartj</code>, <code>graphql</code>, <code>averag</code></td>
+            </tr>
+            <tr>
+                <td>Frontend + UI, CSS</td>
+                <td><code>modernizr</code>, <code>mstyle</code>, <code>elementn</code></td>
+            </tr>
+            <tr>
+                <td>Config management</td>
+                <td><code>chef</code>, <code>runner</code>, <code>platform</code></td>
+            </tr>
+            <tr>
+                <td>Low-level backend</td>
+                <td><code>btree</code>, <code>opclass</code>, <code>using</code></td>
+            </tr>
+        </table>
+    </div>                        
+    </section>
+
+    <section class="slide">
+            <h2>3. Teams of topic contributors</h2>
+            <div>
+            <table>
+                <tr>
+                    <th>Frontend</th>
+                    <th>Config Management</th>
+                    <th>Gollum (wiki)</th>
+                </tr>
+                <tr>
+                    <td>Verify FE</td>
+                    <td>Monitor BE</td>
+                    <td>Product Management</td>
+                </tr>
+                <tr>
+                    <td>Core</td>
+                    <td>Plan BE</td>
+                    <td>Support Department</td>
+                </tr>
+                <tr>
+                    <td>Manage FE</td>
+                    <td>Core Alumni</td>
+                    <td>Core Alumni</td>
+                </tr>
+                <tr>
+                    <td>Create FE</td>
+                    <td>Create BE</td>
+                    <td>Core</td>
+                </tr>
+                <tr>
+                    <td>Monitor FE</td>
+                    <td>Distribution BE</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Serverless FE</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>                        
+        </section>
+    
+	<section class="slide">
+        <h2>Thank you</h2>
+    </section>
+
+    <div class="progress"></div>
+    
+	<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+	<script src="shower/shower.min.js"></script>
+	<script async src="https://use.fontawesome.com/72adc0539b.js"></script>
+	<script>
+    function fullscreen() {
+        if (!document.fullscreenElement && !document.mozFullScreenElement &&
+			!document.webkitFullscreenElement) {
+            var body = document.getElementsByTagName("html")[0];
+            if (body.requestFullscreen) {
+                body.requestFullscreen();
+            } else if (body.mozRequestFullScreen) {
+                body.mozRequestFullScreen();
+            } else if (body.webkitRequestFullScreen) {
+                body.webkitRequestFullScreen();
+            }
+            document.getElementById("fullscreen").title = "Return";
+        } else {
+            if (document.cancelFullScreen) {
+                document.cancelFullScreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            }
+            document.getElementById("fullscreen").title = "Go fullscreen";
+        }
+    }
+    </script>
+</body>
+</html>
