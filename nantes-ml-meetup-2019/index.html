@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>ML on Code</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@vadimlearning" />
+    <meta name="twitter:label1" content="Number of slides" />
+    <meta name="twitter:data1" content="67" />
+    <meta name="twitter:label2" content="Where and when" />
+    <meta name="twitter:data2" content="Munich, Germany - 19.06.2019" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="http://vmarkovtsev.github.io/mlconference-2019-munich" />
+    <meta property="og:title" content="Mining software development history: approaches and challenges" />
+    <meta property="og:description" content="Software development history, typically represented as a Version Control System log, is a rich source of insights into how the project evolved, as well as how its developers worked. What's probably more important is that events from the past can predict the future. This talk gives fun history mining examples and presents some of the available tooling. The involved topics include graph embeddings, manifold learning, dynamic time warping, seriation, and modern clustering algorithms." />
+    <meta property="og:image" content="https://vmarkovtsev.github.io/mlconference-2019-munich/pictures/cover.jpg" />
+    <meta property="twitter:image" content="https://vmarkovtsev.github.io/mlconference-2019-munich/pictures/cover.jpg" />
+    <link rel="stylesheet" href="shower/themes/ribbon/styles/styles.css">
+    <link rel="stylesheet" href="fonts/Cerebri_Sans/font.css">
+    <link rel="stylesheet" href="fonts/Source_Sans_Pro/font.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .shower {
+            --slide-ratio: calc(16 / 9);
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+    </style>
+</head>
+<body class="shower list">
+
+	<header class="caption">
+		<button type="button" id="fullscreen" title="Go fullscreen" onclick="fullscreen()"><i class="fa fa-arrows-alt"></i></button>
+		<h1>ML on Code</h1>
+		<p>Waren Long, <a href="https://sourced.tech">source{d}</a>.</p>
+	</header>
+
+	<style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        -webkit-full-screen {
+            z-index: 1;
+            height: 100%;
+        }
+        :-webkit-full-screen .full section {
+            /* fix buggy Chrome offsets */
+            margin-left: -1px !important;
+            margin-top: -1px !important;
+        }
+        .slide h2 {
+            font-family: 'Cerebri Sans', sans-serif;
+            margin-left: -4px;
+        }
+        @media not print {
+            .slide {
+                color: white;
+                background: black;
+            }
+            .slide h2, .slide li::before {
+                color: #bababa;
+            }
+        }
+        .slide h3 {
+            font-family: 'Cerebri Sans', sans-serif;
+            margin-top: -20px;
+            margin-left: -4px;
+            color: #bababa;
+        }
+        header.caption {
+            padding-right: 134px;
+        }
+        #fullscreen {
+            float: right;
+            height: 48px;
+            width: 48px;
+            background: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            border: none;
+            color: #3c3d40;
+            position: fixed;
+            right: 42px;
+            top: 48px;
+        }
+        #fullscreen:hover {
+            color: #bababa;
+        }
+        #fullscreen:focus {
+            outline: none;
+        }
+        #fullscreen > i {
+            font-size: 36px;
+            text-align: center;
+        }
+        .slide p {
+            line-height: 1.25;
+        }
+        .slide::after {
+            display: none;
+        }
+        .slide li::before {
+            opacity: 1 !important;
+        }
+        .center {
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h2.bottom {
+            position: absolute;
+            bottom: 50px;
+        }
+        .important {
+            color: #dd0000;
+        }
+        .mono {
+            font-family: monospace;
+        }
+        .success {
+            color: #a5c261;
+        }
+        .vista {
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+        }
+        .vista-cover {
+            background-size: cover !important;
+        }
+        i.fa {
+            font-style: normal;
+        }
+        ul>li::before {
+            color: white !important;
+        }
+        ul.no-bullets > li::before {
+            display: none;
+            text-indent: 0;
+        }
+        ul.no-bullets > li {
+            text-indent: 0;
+        }
+		code.inline:before, code.inline-no-offset:before {
+			display: none;
+		}
+		code.inline, code.inline-no-offset {
+			padding: 0;
+		}
+		code.inline-no-offset {
+			margin-left: 0 !important;
+			padding-left: 50px !important;
+		}
+		.part-teaser {
+			text-align: center;
+			vertical-align: middle;
+			line-height: 400px !important;
+		}
+		.slide a:hover {
+			background: linear-gradient(to top,currentColor .09em,transparent .09em) repeat-x;
+		}
+        .monofa {
+            width: 1.5em;
+            margin-right: 0.1em;
+            display: inline-block;
+            text-align: center;
+        }
+        .fa-bullets > li {
+            margin-left: -1.6em;
+        }
+        ul.two-cols {
+            overflow: hidden;
+        }
+        ul.two-cols > li {
+            text-indent: 0;
+            float: left;
+            width: 50%;
+        }
+        .part > h2 {
+            color: white;
+            font-family: 'Cerebri Sans Extra Bold', sans-serif;;
+        }
+        .part {
+            background: radial-gradient(circle at center, #8719cb 0, #400d9a 130%);
+        }
+        mark.important {
+            background-color: #dd0000;
+            color: white;
+            font-weight: bold;
+            margin: 0 -0.1em;
+            padding: 0.1em 0.3em 0.3em 0.3em;
+        }
+        img.black {
+            display: block;
+        }
+        img.white {
+            display: none;
+        }
+        @media not print {
+            img.black {
+                display: none;
+            }
+            img.white {
+                display: block;
+            }
+        }
+        .emoji {
+            font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", Times, Symbola, Aegyptus, Code2000, Code2001, Code2002, Musica, serif, LastResort;
+        }
+        .shout-small {
+            font-size: 70px !important;
+        }
+        .shout-small a {
+           background: none !important;
+        }
+        .fullslide {
+            position: relative;
+            top: -81px;
+            left: -100px;
+            width: calc(100% + 200px);
+            height: calc(100% + 81px);
+            border: 0;
+            object-fit: contain;
+        }
+        .fullslide-padding {
+            width: 100%;
+            height: calc(100% - 100px);
+            margin-top: -34px;
+            object-fit: contain;
+        }
+        .fullwidth > img, img.fullwidth {
+            width: 100%;
+            object-fit: contain;
+            max-height: 380px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .fullwidth > figcaption {
+            position: absolute;
+            font-size: smaller;
+            bottom: 50px;
+            right: 50px;
+            transform: rotate(-90deg);
+        }
+    </style>
+
+    <section class="slide" id="logorama">
+        <figure>
+            <img class="logorama" src="pictures/logorama.png">
+        </figure>
+        <style>
+            #logorama img {
+                position: absolute;
+                margin: -80px -100px 0;
+                width: 100%;
+                object-fit: cover;
+            }
+        </style>
+    </section>
+
+	<section class="slide vista vista-cover" id="cover">
+        <h2>Machine Learning on Code</h2>
+        <h3><i>from n-grams to GGNNs</i></h3>
+        <p>Waren Long<br>
+            <a id="sourced-cover" href="https://sourced.tech"><img src="pictures/sourced.svg"></a>
+        </p>
+        <p>Nantes ML Meetup - July 1st, 2019</p>
+		<!-- <div class="sponsors">
+            <img src="pictures/sponsor5.png">
+            <img src="pictures/sponsor3.png">
+            <img src="pictures/sponsor4.png">
+        </div> -->
+		<style>
+            #cover > p:nth-of-type(1) {
+                transform: translateY(20px);
+            }
+            #cover > p:nth-of-type(2) {
+                transform: translateY(200px);
+            }
+			.sponsors {
+                display: flex;
+                flex-direction: row;
+                height: 100px;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding-bottom: 20px;
+            }
+            .sponsors img {
+                width: calc(20% - 10px);
+                object-fit: contain;
+                margin: 0 75px;
+            }
+            .black {
+                color: #202020;
+                font-weight: bold;
+            }
+            #cover h2 {
+                margin: 0px 0 0;
+                text-align: center;
+                font-size: 50px;
+                color: whitesmoke;
+            }
+            #cover h3 {
+                margin: 0px 0 0;
+                text-align: center;
+                font-size: 30px;
+                color: whitesmoke;
+            }
+            #cover p {
+                text-align: center;
+                font-size: 20px;
+                font-family: 'Cerebri Sans', sans-serif;
+            }
+			#cover {
+				background: url("pictures/sous_marin.jpg") black;
+				background-position-y: -10px !important;
+			}
+			#cover h2:before {
+				content: "";
+				position: absolute;
+				z-index: -1;
+				left: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.2);
+			}
+            #sourced-cover > img {
+                width: 100px;
+                margin-top: 5px;
+            }
+            #sourced-cover:hover {
+                background: none;
+            }
+            .source-web {
+            position: absolute;
+            bottom: 20px !important;
+            right: 100px !important;
+            font-size: 20px;
+            }
+            .source{
+                position: absolute;
+                bottom: 20px !important;
+                right: 100px !important;
+                line-height: 45px !important;
+                font-size: 20px;
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="plan">
+        <h2>Programs as</h2>
+        <i class="fas fa-walking"></i>Token sequences&nbsp;&nbsp;<span>➙</span>&nbsp;&nbsp;ASTs&nbsp;&nbsp;<span>➙</span>&nbsp;&nbsp;Graphs&nbsp;
+        <style>
+            #plan {
+                background-image: url("pictures/plan.png");
+            }
+            #plan span {
+                position: relative;
+                top: 2px;
+            }
+        </style>
+    </section>
+
+    <section class="slide" id="grand-bleu1">
+        <h2>Early days</h2>
+        <h3><i>The first language models</i></h3>
+        <figure>
+            <img class="grand-bleu1" src="pictures/gb_voiture2.jpg">
+        </figure>
+        <style>
+            #grand-bleu1 h2 {
+                margin: 0px 0 0;
+                color:lightgrey;
+                text-align:left;
+                font-size:50px;
+            }
+            #grand-bleu1 h3 {
+                margin: 0px 0 0;
+                text-align: left;
+                font-size: 30px;
+                color: whitesmoke;
+            }
+            #grand-bleu1 img {
+                position: absolute;
+                margin: -190px -100px 0;
+                width: 105%;
+                object-fit: cover;
+                filter: brightness(0.4);
+                z-index: -1;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>Code is bimodal</h2>
+        <p><i>"Source code is bimodal: it combines a formal algorithmic channel and a natural language channel of identifiers and comments. Because the two channels interact, [...] bimodality is a natural fit for machine learning."</i></p>
+        <p>&emsp;&emsp;Earl Barr</p>
+        <p>fMRI scans of skilled programmers show NLP parts of the brain active when reading code</p>
+        <p class="source"><a href="https://web.eecs.umich.edu/~weimerw/p/weimer-icse2017-preprint.pdf">Decoding the representation of code in the brain</a><br>&emsp; B. Floyd et al. 2017</p>
+    </section>
+
+    <section class="slide">
+        <h2>... but code is hard to write</h2>
+        <p><i>"Programming languages are inherently harder to write and read... so programmers deliberately write code as <b>unsurprising</b> as possible."</i></p>
+        <p><i>"Code (in all languages) is more predicatble than natural language because it more <b>technical</b> and difficult to learn."</i></p>
+        <p>&emsp;&emsp;Prem Devanbu at ML4P</p>
+        <p class="source"><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.221.1261&rep=rep1&type=pdf">On the natualness of Software</a><br>&emsp; A. Hindle et al. 2012</p>
+    </section>
+
+    <section class="slide">
+        <h2>n-gram language model</h2>
+        <ul>
+            <li>Use a code corpus to estimate the probability distribution of code sequences.</li>
+            <li>Markovian assumption: the next token can be predicted using only the previous n−1 tokens</li>
+            <li>Infinite number of unknown tokens</li>
+            <li>Smoothing methods e.g. Katz smoothing</li>
+        </ul>
+        <p class="source"><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.221.1261&rep=rep1&type=pdf">On the natualness of Software</a><br>&emsp; A. Hindle et al. 2012</p>
+    </section>
+
+    <section class="slide">
+        <h2>Source code vocabularies</h2>
+        <ul>
+            <li>Classic NLP preprocessing (stemming, lemming, etc...)</li>
+            <li>Spitting identifiers using BiLSTM</li>
+            <li>Byte Pair Encoding</li>
+        </ul>
+        <p class="source"><a href="https://arxiv.org/pdf/1904.01873.pdf">Modeling Vocabulary for Big Code Machine Learning</a><br>&emsp; R. Robbes et al. 2019</p>
+    </section>
+
+    <section class="slide">
+        <h2>Token-based applications</h2>
+        <ul>
+            <li>Code completion/suggestion </li>
+            <li>Coding convention: Naturalize</li>
+            <li>Code dediplication: CCFinder, SourcererCC</li>
+            <li>Bug detection: DeepBugs</li>
+        </ul>
+        <!-- <p class="source"><a href="https://arxiv.org/pdf/1904.01873.pdf">Modeling Vocabulary for Big Code Machine Learning</a><br>&emsp; R. Robbes et al. 2019</p> -->
+    </section>
+
+    <section class="slide" id="grand-bleu2">
+        <h2>The unveiling</h2>
+        <h3><i>Syntactical Features</i></h3>
+        <figure>
+            <img class="grand-bleu2" src="pictures/gb_enzo.jpg">
+		</figure>
+		<style>
+            #grand-bleu2 h2 {
+                margin: 0px 0 0;
+                color:lightgrey;
+                text-align:left;
+                font-size:50px;
+            }
+            #grand-bleu2 h3 {
+                margin: 0px 0 0;
+                text-align: left;
+                font-size: 30px;
+                color: whitesmoke;
+            }
+            #grand-bleu2 img {
+                position: absolute;
+                margin: -190px -100px 0;
+                width: 105%;
+                object-fit: cover;
+				filter: brightness(0.4);
+                z-index: -1;
+            }
+        </style>
+    </section>
+
+    <section class="slide" id="representations">
+        <h2>Syntactical representation</h2>
+        <table cellspacing="50" cellpadding="50">
+            <tr>
+                <th>Natural Language</th>
+                <th>Code</th>
+            </tr>
+            <tr>
+                <td>I shot an elephant in my pyjamas</td>
+                <td>
+                    <pre>
+                        <code>Assert.NotNull(clazz)</code>
+                    </pre>
+                </td>
+            </tr>
+            <tr>
+                <td><img class="sentence" src="pictures/graph_nlp.png"/></td>
+                <td><img class="snippet" src="pictures/ast.png"/></td>
+            </tr>
+        </table>
+        <style>
+            #representations pre {
+                font-size: 20px;
+                margin-left: -200px;
+                /* text-align: left; */
+            }
+            #representations th {
+                text-align: center;
+            }
+            .sentence {
+                text-align: center;
+                width: 200px;
+            }
+            .snippet {
+                text-align: center;
+                width: 350px;
+            }
+            #representations table {
+                margin-left: -100px;
+                border-collapse: collapse;
+                text-align: center;
+                /* border: 1px solid white; */
+                /* width: 80%; */
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>  </h2>
+        <a href="https://doc.bblf.sh"><img class="center" src="pictures/bblfsh-logo.png"></a>
+        <div class="vista center" id="bblfsh-arch"></div>
+        <style>
+            #bblfsh-arch {
+                width: 600px;
+                height: 100px;
+                background-image: url("pictures/bblfsh-arch-black.png");
+            }
+            @media not print {
+                #bblfsh-arch {
+                    background-image: url("pictures/bblfsh-arch-white.png");
+                }
+            }
+        </style>
+    </section>
+
+    <section class="slide" id="context">
+        <h2>Different Context</h2>
+        <img src="pictures/context1.png" class="context1">
+        <img src="pictures/context2.png" class="context2">
+        <img src="pictures/context3.png" class="context3">
+        <p>&bull;&emsp;Token neighbors</p>
+        <p>&bull;&emsp;AST-node neighbors</p>
+        <p>&bull;&emsp;AST paths</p>
+        <style>
+            .context1 {
+                position: absolute;
+                right:100px;
+                top: 120px;
+                width: 300px;
+            }
+            .context2 {
+                position: absolute;
+                right:100px;
+                top: 260px;
+                width: 300px;
+            }
+            .context3 {
+                position: absolute;
+                right:100px;
+                top: 420px;
+                width: 300px;
+            }
+            #context > p:nth-of-type(1) {
+                margin-top: 60px;
+                margin-left: 10px;
+            }
+            #context > p:nth-of-type(2) {
+                margin-top: 120px;
+                margin-left: 10px;
+            }
+            #context > p:nth-of-type(3) {
+                margin-top: 120px;
+                margin-left: 10px;
+            }
+        </style>
+    </section>
+
+    <!-- <section class="slide" id="flatten">
+        <h2>UAST Flattening</h2>
+        <img src="pictures/context2.png" class="flatten">
+        <ol>
+            <li>Parse the source code</li>
+            <li>3TB of Git packfiles i.e. include history</li>
+            <li>455 distinct programming languages</li>
+            <li>54M </li>
+        </ol>
+        <p class="source"><a href="http://www.cs.wm.edu/~mtufano/publications/C9.pdf">Deep Learning Similarities from Different Representations of Source Code</a><br>&emsp; M. Di Penta et al. 2018</p>
+        <style>
+            .flatten {
+                position: absolute;
+                right:100px;
+                top: 170px;
+                width: 350px;
+            }
+        </style>
+    </section> -->
+
+    <section class="slide" id="code2vec">
+        <h2>Design tradeoff from code2vec</h2>
+        <img src="pictures/code2vec_graph.png" class="code2vec">
+        <style>
+            .code2vec {
+                position: absolute;
+                left:80px;
+                top: 170px;
+                width: 650px;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>Gemini</h2>
+        <h3><i>Code deduplication at Scale</i></h3>
+        <ol>
+            <li>Create <a href="https://github.com/src-d/datasets/tree/master/PublicGitArchive">Public Git Archive</a>, dataset of 180k popular GitHub repos</li>
+            <li>Extract UASTs and combine various syntactical features</li>
+            <li>Create a pairwise similarity graph using <a href="https://en.wikipedia.org/wiki/Locality-sensitive_hashing">Locality Sensitive Hashing</a></li>
+            <li>Extract connected components from the graph</li>
+            <li>Perform comunity detection to display highlight clone communities</li>
+        </ol>
+        <p class="source-web"><a href="https://github.com/src-d/gemini">src-d/gemini</a>, source{d}</p>
+    </section>
+
+    <section class="slide" id="pga">
+        <h2>1. Public Git Archive</h2>
+        <img src="pictures/PGA.png" class="pga">
+        <ul>
+            <li>Dataset of 182,014 GitHub repositories with +50*</li>
+            <li>3TB of Git packfiles i.e. include history</li>
+            <li>455 distinct programming languages</li>
+            <li>54 million files</li>
+            <li>16 billion LoC</li>
+        </ul>
+        <p class="source"><a href="https://dl.acm.org/citation.cfm?id=3196464">Public git archive: a big code dataset for all</a><br>&emsp; V. Markovtsev et al. 2018</p>
+        <style>
+            .pga {
+                position: absolute;
+                right:130px;
+                top: 200px;
+                width: 300px;
+            }
+        </style>
+    </section>
+
+    <section class="slide" id="gemini-features">
+        <h2>2. Feature extraction</h2>
+        <img src="pictures/graphlet.png" class="gemini-features">
+        <ul>
+            <li>Identifiers and literals</li>
+            <li>Quantized number of children</li>
+            <li>Graphlets or tree skip gram &emsp;&emsp;&emsp;&rArr;</li>
+            <li>Random walks</li>
+            <li>AST paths (DFS + limited length)</li>
+        </ul>
+        <style>
+            .gemini-features {
+                position: absolute;
+                right:180px;
+                top: 160px;
+                width: 200px;
+            }
+        </style>
+    </section>
+
+    <section class="slide" id="gemini">
+        <h2>3. Community detection</h2>
+        <img src="pictures/gemini_visual.png" class="gemini">
+        <style>
+            .gemini {
+                position: absolute;
+                left:150px;
+                top: 190px;
+                width: 700px;
+            }
+        </style>
+    </section>
+
+    <!-- <section class="slide" id="gemini-features">
+        <h2>3. Hashing</h2>
+        <img src="pictures/graphlet.png" class="gemini-features">
+        <ul>
+            <li>Impossible to compute similarity between each snippet</li>
+            <li>Quantized number of children</li>
+            <li>Graphlets or tree skip gram &emsp;&emsp;&emsp;&rArr;</li>
+            <li>Random walks</li>
+            <li>AST paths (DFS + limited length)</li>
+        </ul>
+        <style>
+            .gemini-features {
+                position: absolute;
+                right:180px;
+                top: 160px;
+                width: 200px;
+            }
+        </style>
+    </section> -->
+
+    <section class="slide" id="code2vec1">
+        <h2>code2vec</h2>
+        <ol>
+            <li>AST path extraction</li>
+            <li>Distributed representation of contexts</li>
+            <li>Path-attention network</a></li>
+            <li>Evaluation on semantic labelling</li>
+        </ol>
+        <img src="pictures/code2vec1.png" class="code2vec1">
+        <p class="source"><a href="https://arxiv.org/pdf/1803.09473.pdf">code2vec: Learning Distributed Representations of Code</a><br> Alon et. al. 2018</p>
+        <style>
+            .code2vec1 {
+                position: absolute;
+                right:100px;
+                top: 80px;
+                width: 350px;
+            }
+        </style>
+    </section>
+
+    <section class="slide" id="code2vec2">
+        <h2>Attention mechanism</h2>
+        <img src="pictures/code2vec2.png" class="code2vec2">
+        <!-- <p class="source"><a href="https://arxiv.org/pdf/1803.09473.pdf">code2vec: Learning Distributed Representations of Code</a><br> Alon et. al. 2018</p> -->
+        <style>
+            .code2vec2 {
+                position: absolute;
+                right:130px;
+                top: 180px;
+                width: 800px;
+            }
+        </style>
+    </section>
+
+    <section class="slide" id="grand-bleu3">
+        <h2>State of the Art</h2>
+        <h3><i>GGNNs</i></h3>
+        <figure>
+            <img class="grand-bleu3" src="pictures/gb_enzo_it.jpg">
+        </figure>
+        <style>
+            #grand-bleu3 h2 {
+                margin: 0px 0 0;
+                color:lightgrey;
+                text-align:left;
+                font-size:50px;
+            }
+            #grand-bleu3 h3 {
+                margin: 0px 0 0;
+                text-align: left;
+                font-size: 30px;
+                color: whitesmoke;
+            }
+            #grand-bleu3 img {
+                position: absolute;
+                margin: -190px -100px 0;
+                width: 105%;
+                object-fit: cover;
+                filter: brightness(0.4);
+                z-index: -1;
+            }
+        </style>
+    </section>
+
+    <section class="slide" id="programs-graph">
+        <h2>Programs as graphs</h2>
+        <h3><i>Start from syntax</i></h3>
+        <img src="pictures/miltos_graph1.png" class="programs-graph">
+        <pre>
+            <code>Assert.NotNull(clazz)</code>
+        </pre>
+        <!-- <p class="source"><a href="https://arxiv.org/abs/1711.00740">Learning to Represent Programs with Graphs</a><br>M. Allamanis et. al. 2018</p> -->
+        <style>
+            #programs-graph pre {
+                font-size: 20px;
+            }
+            .programs-graph {
+                position: absolute;
+                right:100px;
+                top: 220px;
+                width: 550px;
+            }
+        </style>
+    </section>
+
+    <section class="slide" id="programs-graph2">
+        <h2>Programs as graphs</h2>
+        <h3><i>Adding data flows</i></h3>
+        <img src="pictures/miltos_graph2.png" class="programs-graph2">
+        <!-- <p class="source"><a href="https://arxiv.org/abs/1711.00740">Learning to Represent Programs with Graphs</a><br>M. Allamanis et. al. 2018</p> -->
+        <style>
+            .programs-graph2 {
+                position: absolute;
+                right:300px;
+                top: 250px;
+                width: 600px;
+            }
+        </style>
+    </section>
+
+    <section class="slide" id="programs-graph3">
+        <h2>Potentially big graphs</h2>
+        <img src="pictures/miltos_graph3.png" class="programs-graph3">
+        <pre>
+            <code>def sum_positive(arr, lim):</code>
+            <code>  sum = 0</code>
+            <code>  for i in range(lim):</code>
+            <code>      if arr[i] > 0:</code>
+            <code>          sum += arr[i]</code>
+            <code>  return sum</code>
+        </pre>
+        <!-- <p class="source"><a href="https://arxiv.org/abs/1711.00740">Learning to Represent Programs with Graphs</a><br>M. Allamanis et. al. 2018</p> -->
+        <p>~900 nodes/graph</p>
+        <p>~8k edges/graph</p>
+       <style>
+            #programs-graph3 pre {
+                font-size: 17px;
+            }
+            .programs-graph3 {
+                position: absolute;
+                right:170px;
+                top: 120px;
+                width: 230px;
+            }
+        </style>
+    </section>
+
+    <section class="slide" id="programs-graph3">
+        <h2>Graph Neural Networks</h2>
+        <ul>
+            <li>Extend NNs to process a more general class of graphs (cyclic, directed)</li>
+            <li>Encode one graph into an dense representation</li>
+            <li>Suitable for both graph and node focuses applications</li>
+            <li>Each node of the graph is replaced by a unit computing the function</li>
+            <li>AST paths (DFS + limited length)</li>
+        </ul>
+        <p class="source"><a href="https://persagen.com/files/misc/scarselli2009graph.pdf">The Graph Neural Network Model</a><br>F. Scarselli et. al. 2009</p>
+    </section>
+
+    <section class="slide" id="programs-graph3">
+        <h2>Graph Neural Networks</h2>
+        <img src="pictures/gnn1.png" class="gnn1">
+        <img src="pictures/gnn2.png" class="gnn2">
+        <p class="source"><a href="https://persagen.com/files/misc/scarselli2009graph.pdf">The Graph Neural Network Model</a><br>F. Scarselli et. al. 2009</p>
+        <style>
+            .gnn1 {
+                position: absolute;
+                left:100px;
+                top: 180px;
+                width: 450px;
+            }
+        </style>
+        <style>
+            .gnn2 {
+                position: absolute;
+                right:120px;
+                top: 200px;
+                width: 300px;
+            }
+        </style>
+    </section>
+
+
+
+	<section class="slide">
+        <h2>Thank you</h2>
+        <ul class="no-bullets fa-bullets">
+            <li><i class="fa fa-envelope monofa" aria-hidden="true"></i><a href="mailto://waren@sourced.tech">waren@sourced.tech</a></li>
+            <li><i class="fa fa-twitter monofa" aria-hidden="true"></i><a href="https://twitter.com/warenlg">@warenlg</a></li>
+            <li><i class="fa fa-github monofa" aria-hidden="true"></i><a href="https://github.com/warenlg">@warenlg</a></li>
+            <li><i class="fa fa-rss monofa" aria-hidden="true"></i><a href="https://blog.sourced.tech">blog.sourced.tech</a></li>
+            <li><i class="fa fa-trophy monofa" aria-hidden="true"></i><a href="https://github.com/src-d/awesome-machine-learning-on-source-code">Awesome #MLonCode</a></li>
+        </ul>
+    </section>
+
+	<div class="progress"></div>
+
+	<script src="shower/shower.min.js"></script>
+	<script async src="https://use.fontawesome.com/72adc0539b.js"></script>
+	<script>
+    function fullscreen() {
+        if (!document.fullscreenElement && !document.mozFullScreenElement &&
+			!document.webkitFullscreenElement) {
+            var body = document.getElementsByTagName("html")[0];
+            if (body.requestFullscreen) {
+                body.requestFullscreen();
+            } else if (body.mozRequestFullScreen) {
+                body.mozRequestFullScreen();
+            } else if (body.webkitRequestFullScreen) {
+                body.webkitRequestFullScreen();
+            }
+            document.getElementById("fullscreen").title = "Return";
+        } else {
+            if (document.cancelFullScreen) {
+                document.cancelFullScreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            }
+            document.getElementById("fullscreen").title = "Go fullscreen";
+        }
+    }
+    </script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-63575100-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-63575100-2');
+    </script>
+</body>
+</html>
