@@ -67,14 +67,25 @@
                 <h3 class="research-topic">Similar & Duplicate Code Analysis</h3>
                 <p>
                     Code clones can be measured at the file, function and snippet levels.
-                    According to the conventional classification extracting the
+                    <!-- According to the conventional classification extracting the
                     natural language elements in code (how developers choose to name entities, 
-                    for example) and the structure of the code.
+                    for example) and the structure of the code. -->
+                </p>
+                <p>
+                    <b>keywords:</b> minhash, community detection
                 </p>
                 <img src="static/jquery.png" id="duplicate">
 
                 <h3 class="research-topic">Identity Matching</h3>
                 <p>
+                    Developers may use multiple names and emails when pushing their commits 
+                    which makes them appear as different entities.
+                    In order to get a representative picture we need to merge those identities
+                    
+                    match these emails and names using the
+                    approach called "identity matching". This approach consists of
+                    preprocessing, finding connected components in the commit signature
+                    co-occurrence graph, and their classification.
                 </p>
                 <img src="static/idmatching_graph.png" id="idmatching">
 
