@@ -91,3 +91,19 @@ body {
   text-align: justify;
   line-height: 1.8em;
 }
+
+.monofa {
+  width: 50px;
+  display: inline-block;
+  /* color: rgba(255,255,255,.5); */
+  font-size: 30px;
+}
+
+a.monofa:hover {
+  text-decoration: underline;
+}
+
+.social-links {
+  text-align: center;
+  margin-top: 100px;
+}
