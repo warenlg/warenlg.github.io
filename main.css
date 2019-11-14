@@ -1,22 +1,25 @@
 body {
-  margin-right: 9vw;
-  margin-left: 9vw;
   background-color: #fff;
   font-family: neue-haas-grotesk-display, sans-serif;
   font-weight: 400;
+
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1140px;
 }
 
 .first-banner {
   margin-top: 80px;
-  font-weight: 400;
 }
 
 .name-link {
-  font-size: 1.2vw;
+  font-size: 24px;
   text-decoration: none;
   text-shadow: none;
-  font-family: neue-haas-grotesk-text, sans-serif;
-  color: #30364c;
+  color: #36373d;
   text-align: left;
 }
 
@@ -24,9 +27,8 @@ body {
   position: static;
   display: block;
   float: right;
-  font-family: neue-haas-grotesk-text, sans-serif;
   color: #7a8277;
-  font-size: 1.2vw;
+  font-size: 24px;
   text-decoration: none;
 }
 
@@ -35,9 +37,8 @@ body {
   display: block;
   margin-right: 8vw;
   float: right;
-  font-family: neue-haas-grotesk-text, sans-serif;
   color: #7a8277;
-  font-size: 1.2vw;
+  font-size: 24px;
   text-decoration: none;
 }
 
@@ -59,4 +60,34 @@ body {
   50% { border-color:transparent }
 }
 
-* { color:black; text-decoration: none;}
+
+/* About */
+
+.hello {
+  color: #36373d;
+  margin-top: 130px;
+  margin-bottom: 50px;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.bio-content {
+  display: flex;
+  align-items:center;
+}
+
+.bio-content img {
+  margin-right: 40px;
+  width: 30%;
+  border-radius: 25px;
+  float: left;
+  vertical-align: middle !important;
+}
+
+.bio-text p, a{
+  color: #9b9b9b;
+  font-size: 20px;
+  text-decoration: none;
+  text-align: justify;
+  line-height: 1.8em;
+}
