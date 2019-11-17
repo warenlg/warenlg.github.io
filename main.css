@@ -93,7 +93,7 @@ body {
 }
 
 .monofa {
-  width: 50px;
+  width: 100px;
   display: inline-block;
   /* color: rgba(255,255,255,.5); */
   font-size: 30px;
@@ -103,7 +103,17 @@ a.monofa:hover {
   text-decoration: underline;
 }
 
-.social-links {
+/* .social-links {
   text-align: center;
   margin-top: 100px;
+} */
+
+/* Footer */
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 50px;
+  width: 100%;
+  text-align: center;
 }
