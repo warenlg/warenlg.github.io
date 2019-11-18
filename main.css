@@ -2,13 +2,23 @@ body {
   background-color: #fff;
   font-family: neue-haas-grotesk-display, sans-serif;
   font-weight: 400;
-
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
   max-width: 1140px;
+}
+
+/* Header */
+
+.header {
+  overflow: hidden;
+  padding-top: 20px;
+}
+
+.header-right {
+  float: right;
 }
 
 .first-banner {
@@ -25,18 +35,29 @@ body {
 
 .work-link {
   position: static;
-  display: block;
-  float: right;
+  display: inline;
+  text-align: right;
   color: #7a8277;
+  margin-right: 30px;
   font-size: 24px;
   text-decoration: none;
 }
 
 .about-link {
   position: static;
-  display: block;
-  margin-right: 8vw;
-  float: right;
+  display: inline;
+  margin-right: 30px;
+  text-align: right;
+  color: #7a8277;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.about-publications {
+  position: static;
+  display: inline;
+  margin-right: 0px;
+  text-align: right;
   color: #7a8277;
   font-size: 24px;
   text-decoration: none;
@@ -102,11 +123,6 @@ body {
 a.monofa:hover {
   text-decoration: underline;
 }
-
-/* .social-links {
-  text-align: center;
-  margin-top: 100px;
-} */
 
 /* Footer */
 
