@@ -1,32 +1,41 @@
+html {
+  height: 100%;
+}
+
 body {
   background-color: #fff;
   font-family: neue-haas-grotesk-display, sans-serif;
   font-weight: 400;
   width: 100%;
+  height: 100%;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
   max-width: 1140px;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
 }
 
 /* Header */
 
 .header {
   overflow: hidden;
-  padding-top: 20px;
+  padding-top: 50px;
 }
 
 .header-right {
   float: right;
-}
-
-.first-banner {
-  margin-top: 80px;
+  font-size: 22px;
+  color: #7a8277;
 }
 
 .name-link {
-  font-size: 24px;
+  font-size: 22px;
   text-decoration: none;
   text-shadow: none;
   color: #36373d;
@@ -37,9 +46,7 @@ body {
   position: static;
   display: inline;
   text-align: right;
-  color: #7a8277;
   margin-right: 30px;
-  font-size: 24px;
   text-decoration: none;
 }
 
@@ -48,8 +55,6 @@ body {
   display: inline;
   margin-right: 30px;
   text-align: right;
-  color: #7a8277;
-  font-size: 24px;
   text-decoration: none;
 }
 
@@ -58,9 +63,14 @@ body {
   display: inline;
   margin-right: 0px;
   text-align: right;
-  color: #7a8277;
-  font-size: 24px;
   text-decoration: none;
+}
+
+/* Home content */
+
+.main-question {
+  margin-top: 100px;
+
 }
 
 .typewrite {
@@ -127,9 +137,28 @@ a.monofa:hover {
 /* Footer */
 
 .footer {
-  position: fixed;
-  left: 0;
-  bottom: 50px;
+  flex-shrink: 0;
+  padding: 20px;
   width: 100%;
   text-align: center;
+}
+
+/* Publications */
+
+.publications {
+  font-size: 20px;
+}
+
+.publications li {
+  color: #9b9b9b;
+}
+
+.publications a {
+  color: black
+}
+
+/* Research interests */
+
+.duplicate {
+  width: 100%
 }
