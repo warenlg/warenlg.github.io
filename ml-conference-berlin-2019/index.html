@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Identifying Coding Collaborators at GitLab</title>
+	<title>Identifying Coding Collaborators in Large Codebases</title>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen-16x10.css">
+    <link rel="stylesheet" href="shower/themes/ribbon/styles/screen-16x10.css">
+    <script src="jquery.js"></script> 
+    <script> 
+    $(function(){
+      $("#includedContent").load("pictures/bots.html"); 
+    });
+    </script> 
 </head>
 <body class="shower list">
 
 	<header class="caption">
 		<button type="button" id="fullscreen" title="Go fullscreen" onclick="fullscreen()"><i class="fa fa-arrows-alt"></i></button>
-		<h1>Identifying coding collaborators at GitLab</h1>
+		<h1>Identifying coding collaborators in large codebases</h1>
 		<p>Waren Long, <a href="https://sourced.tech">source{d}</a>.</p>
 	</header>
 
@@ -26,7 +32,7 @@
         }
         :-webkit-full-screen .full section {
             /* fix buggy Chrome offsets */
-left: -1px !important;            margin-
+            left: -1px !important;   
             margin-top: -1px !important;
         }
         @media not print {
@@ -162,99 +168,40 @@ left: -1px !important;            margin-
     </style>
 
     <section class="slide" id="cover">
-		<h2>Identifying Coding Collaborators<br>at GitLab</h2>
-        <p>15, April 2019</p>
-        <h3>x</h3>
-        <img src="pictures/sourced-logo.svg" class="sourced-logo">
-        <img src="pictures/gitlab-logo.png" class="gitlab-logo">
+		<h2>Identify Coding Collaborators using<br>Unsupervised Learning</h2>
+        <p>ML Conference, Berlin &nbsp - &nbsp December 10th, 2019</p>
+        <p>Waren Long</p>
         <style>
-            .sourced-logo {
-                position: absolute;
-                width: 30%;
-                left: 14%;
-                top: 60%;
-				filter: brightness(0.7);
-            }
-            .gitlab-logo {
-                position: absolute;
-                width: 30%;
-                right: 17%;
-                top: 55%;
-				filter: brightness(0.7);
-            }
+            #cover {
+				background: url("pictures/coca2.png");
+                background-color: rgb(0, 0, 0, 0.7);
+                background-blend-mode: multiply;
+                background-size: contain !important;
+                background-repeat: no-repeat !important;
+                background-position: center !important;
+			}
             #cover h2 {
                 margin:30px 0 0;
-                color: #bababa;
+                color: rgb(194, 194, 194);
                 text-align:center;
-                font-size:70px;
+                font-size:60px;
             }
-            #cover h3 {
-                margin:22px 0 0;
-                color: #bababa;
-                text-align:center;
-                font-size:70px;
+            #cover > p:nth-of-type(1) {
+                transform: translateY(30px);
+            }
+            #cover > p:nth-of-type(2) {
+                transform: translateY(30px);
             }
             #cover p {
-                margin:20px 0 0;
                 text-align:center;
-                color:#FFF;
+                color:rgb(194, 194, 194);
                 font-style:italic;
                 font-size:20px;
-            }
-            #cover p a {
-                color:#FFF;
             }
         </style>
 	</section>
-    
-    <!-- <section class="slide vista vista-cover" id="cover">
-        <h2 class="black">Identifying Coding Collaborators<br>at GitLab</h2>
-        <p class="black">April 15, 2019</p>
-        <p class="black">Waren Long</p>
-        <p><a href="https://sourced.tech">source{d}</a></p>
-        <p class="black">x</p>
-        <p><a href="https://docs.gitlab.com/">GitLab</a></p>
 
-        <style> 
-            #cover h2 {
-                margin:-55px 0 0;
-                text-align:center;
-                font-size:45px;
-            }
-            #cover p {
-                margin: 40px 0 0;
-                text-align:center;
-                font-style:italic;
-                font-size:20px;
-            }
-            #cover {
-                background: url("pictures/cover.png") black;
-                background-position-x: 68% !important;
-            }
-            #cover > h2 {
-                margin-bottom: 20px;
-            }
-            #cover > p {
-                font-size: 24px;
-                font-weight: bold;
-                margin: 0;
-            }
-            #cover > p:nth-of-type(1) {
-                margin-bottom: 243px;
-            }
-            #cover > p:nth-of-type(2) {
-                transform: rotate(-4deg) translateX(30px);
-            }
-            #cover > p:nth-of-type(3) {
-                transform: rotate(-4deg) translateX(30px);
-            }
-            #cover > p:nth-of-type(4) {
-                transform: rotate(-4deg) translateX(30px);
-            }
-        </style>
-    </section> -->
-
-    <section class="slide">
+    <!-- <section class="slide">
             <h2>About source{d}</h2>
             <ul>
                 <li>35 software engineers</li>
@@ -266,7 +213,7 @@ left: -1px !important;            margin-
                     </ol>
             </ul>
             <p class="source-web"><a href="https://sourced.tech/">sourced.tech</a></p>
-    </section>
+    </section> -->
 
     <section class="slide vista" id="plan">
         <h2>Plan</h2>
@@ -289,15 +236,144 @@ left: -1px !important;            margin-
         </style>
     </section>
 
+    <section class="slide" id="context">
+        <h2>Motivation</h2>
+        <style>
+            #context {
+                background: url("pictures/coca2.png");
+                background-color: rgb(0, 0, 0, 0.7);
+                background-blend-mode: multiply;
+                background-size: contain !important;
+                background-repeat: no-repeat !important;
+                background-position: center !important;
+            }
+            #context h2 {
+                margin:30px 0 0;
+                color: rgb(194, 194, 194);
+                text-align: left;
+                font-size:50px;
+            }
+        </style>
+    </section>
+
+    <!-- <section class="slide" id="section context cover">
+        <h2>Identify Coding Collaborators using<br>Unsupervised Learning</h2>
+        <h3>ML Conference, Berlin</3>
+        <style>
+            #cover {
+                background: url("pictures/hackathon.jpg");
+                background-color: rgb(0, 0, 0, 0.7);
+                background-blend-mode: multiply;
+                background-size: 125%;
+                background-position-y: 60px;
+                background-position-x: -130px;
+            }
+            #section h2 {
+                margin:30px 0 0;
+                color: whitesmoke;
+                text-align:center;
+                font-size:60px;
+            }
+            #section h3 {
+                margin:20px 0 0;
+                text-align:center;
+                color:#FFF;
+                font-style:italic;
+                font-size:20px;
+            }
+        </style>
+    </section> -->
+
     <section class="slide">
-        <h2>Input Data</h2>
+        <h2>Requirements</h2>
         <ul>
-            <li>117 repos <a href="https://gitlab.com/gitlab-org">gitlab.com/gitlab-org/*</a></li>
-            <li>2,956 contributors</li>
-            <li>145 programming languages</li>
-            <li>44K files</li>
-            <li>13M LoC</li>
+            <li>Large open source org</li>
+            <li>Many contributors</li>
+            <li>Public team strucure</li>
         </ul>
+    </section>
+
+    <section class="slide">
+        <h2>GitLab</h2>
+        <ul>
+            <li>Fully open source org</li>
+            <li>117 repos <a href="https://gitlab.com/gitlab-org">gitlab.com/gitlab-org/*</a>, 13M LoC</li>
+            <li>3k contributors overall including 250 employees</li>
+            <li><a href="https://about.gitlab.com/company/team/">about.gitlab.com/company/team</a></li>
+            <li>Willing to validate the results</li>
+        </ul>
+    </section>
+    
+    <section class="slide">
+        <h2>Commit time series</h2> <!-- Who worked at the same time? at the same frequency? -->
+        <ol>
+            <li>Collect and normalize the time series</li>
+            <li>Compute the pairwise distance matrix using Dynamic Time Wrapping and not L2 (fastdtw)</li>
+            <li>Clustering with HDBSCAN</li>
+            <li>Dimensionality reduction with UMAP</li>
+        </ol>
+    </section>
+    
+    <section class="slide">
+        <h2>Commit Time Series</h2>
+        <img src="pictures/raw-clusters-commits.svg" class="raw-clusters-commits">
+        <img src="pictures/team-clusters-commits.svg" class="team-clusters-commits">
+        <style>
+            .raw-clusters-commits {
+                position: absolute;
+                width: 400px;
+                top: 190px;
+                left: 100px;
+            }
+            .team-clusters-commits {
+                position: absolute;
+                width: 400px;
+                top: 190px;
+                right: 100px;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>Programming languages</h2>
+        <ol>
+            <li>Collect LoC added/deleted/changed by Developer by language - gitbase</li>
+            <li>Exclude markup languages (HTML, XML) and autogenerated ones (SVG, JSON, CSV)</li>
+            <li>Saturate to the 95th percentile</li>
+            <li>Metric distance is L2</li>
+            <li>First apply UMAP then clustering with HDBSCAN</li>
+        </ol>
+    </section>
+    
+
+    <section class="slide">
+        <h2>Programming Languages Experience</h2>
+        <img src="pictures/raw-clusters_commits.svg" class="raw-clusters-experience">
+        <img src="pictures/team-clusters_commits.svg" class="team-clusters-experience">
+        <style>
+            .raw-clusters-experience {
+                position: absolute;
+                width: 380px;
+                top: 190px;
+                left: 90px;
+            }
+            .team-clusters-experience {
+                position: absolute;
+                width: 380px;
+                top: 190px;
+                right: 90px;
+            }
+        </style>
+    </section>
+
+
+    <section class="slide">
+        <h2>Source code identifiers</h2>
+        <ol>
+            <li>Large open source org - 117 repos <a href="https://gitlab.com/gitlab-org">gitlab.com/gitlab-org/*</a>, 13M LoC</li>
+            <li>Many contributors - 3k</li>
+            <li>Public team strucure - <a href="https://about.gitlab.com/company/team/">gitlab/team</a></li>
+        </ol>
     </section>
 
     <section class="slide">
@@ -322,45 +398,7 @@ left: -1px !important;            margin-
         <p class="source-web">collected with <a href="https://github.com/src-d/hercules">src-d/hercules</a> and <a href="https://github.com/src-d/gitbase">src-d/gitbase</a></p>
     </section>
     
-    <section class="slide">
-            <h2>1. Commit Time Series</h2>
-            <img src="pictures/raw-clusters-commits.svg" class="raw-clusters-commits">
-            <img src="pictures/team-clusters-commits.svg" class="team-clusters-commits">
-            <style>
-                .raw-clusters-commits {
-                    position: absolute;
-                    width: 400px;
-                    top: 190px;
-                    left: 100px;
-                }
-                .team-clusters-commits {
-                    position: absolute;
-                    width: 400px;
-                    top: 190px;
-                    right: 100px;
-                }
-            </style>
-    </section>
 
-    <section class="slide">
-            <h2>2. Programming Languages Experience</h2>
-            <img src="pictures/raw-clusters_commits.svg" class="raw-clusters-experience">
-            <img src="pictures/team-clusters_commits.svg" class="team-clusters-experience">
-            <style>
-                .raw-clusters-experience {
-                    position: absolute;
-                    width: 380px;
-                    top: 190px;
-                    left: 90px;
-                }
-                .team-clusters-experience {
-                    position: absolute;
-                    width: 380px;
-                    top: 190px;
-                    right: 90px;
-                }
-            </style>
-    </section>
 
     
 
@@ -416,47 +454,78 @@ left: -1px !important;            margin-
     </section>
 
     <section class="slide">
-            <h2>3. Teams of topic contributors</h2>
-            <div>
-            <table>
-                <tr>
-                    <th>Frontend</th>
-                    <th>Config Management</th>
-                    <th>Gollum (wiki)</th>
-                </tr>
-                <tr>
-                    <td>Verify FE</td>
-                    <td>Monitor BE</td>
-                    <td>Product Management</td>
-                </tr>
-                <tr>
-                    <td>Core</td>
-                    <td>Plan BE</td>
-                    <td>Support Department</td>
-                </tr>
-                <tr>
-                    <td>Manage FE</td>
-                    <td>Core Alumni</td>
-                    <td>Core Alumni</td>
-                </tr>
-                <tr>
-                    <td>Create FE</td>
-                    <td>Create BE</td>
-                    <td>Core</td>
-                </tr>
-                <tr>
-                    <td>Monitor FE</td>
-                    <td>Distribution BE</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Serverless FE</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-        </div>                        
-        </section>
+        <h2>3. Teams of topic contributors</h2>
+        <div>
+        <table>
+            <tr>
+                <th>Frontend</th>
+                <th>Config Management</th>
+                <th>Gollum (wiki)</th>
+            </tr>
+            <tr>
+                <td>Verify FE</td>
+                <td>Monitor BE</td>
+                <td>Product Management</td>
+            </tr>
+            <tr>
+                <td>Core</td>
+                <td>Plan BE</td>
+                <td>Support Department</td>
+            </tr>
+            <tr>
+                <td>Manage FE</td>
+                <td>Core Alumni</td>
+                <td>Core Alumni</td>
+            </tr>
+            <tr>
+                <td>Create FE</td>
+                <td>Create BE</td>
+                <td>Core</td>
+            </tr>
+            <tr>
+                <td>Monitor FE</td>
+                <td>Distribution BE</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Serverless FE</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>                        
+    </section>
+
+    <!-- Issues: identity matching, bot detection, -->
+
+    <section class="slide">
+        <h2>Identity Matching</h2>
+        <img src="pictures/idmatching2.svg" class="identity-matching">
+        <style>
+            .identity-matching {
+                position: absolute;
+                width: 800px;
+                top: 200px;
+                left: 120px;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>Bot identites</h2>
+        <ul>
+            <li>Introduce noise in the analysis -> <a href="pictures/bots.hml">CloudFoundry analysis</a></li>
+            <li>Squash the contributions of the real developers</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>Outcome</h2>
+        <ol>
+            <li>Paper presented at <a href="https://ml4se.github.io/">ML4SE'19</a></li>
+            <li>Analysis included in manage your talent pool</li>
+        </ol>
+    </section>
     
 	<section class="slide">
         <h2>Thank you</h2>
