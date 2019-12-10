@@ -176,7 +176,7 @@
 				background: url("pictures/coca2.png");
                 background-color: rgb(0, 0, 0, 0.7);
                 background-blend-mode: multiply;
-                background-size: contain !important;
+                background-size: cover;
                 background-repeat: no-repeat !important;
                 background-position: center !important;
 			}
@@ -199,21 +199,25 @@
                 font-size:20px;
             }
         </style>
-	</section>
-
-    <!-- <section class="slide">
-            <h2>About source{d}</h2>
-            <ul>
-                <li>35 software engineers</li>
-                <li>Offices in Madrid and San Francisco but fully remote</li>
-                <li>Activities:</li>
-                    <ol>
-                        <li><b>Code as Data</b> to turn code into actionable insights</li>
-                        <li><b>ML on Code</b> e.g. assisted code review</li>
-                    </ol>
-            </ul>
-            <p class="source-web"><a href="https://sourced.tech/">sourced.tech</a></p>
-    </section> -->
+    </section>
+    
+    <section class="slide" id="about">
+        <h2>About me</h2>
+        <ul>
+            <li>Background in mathematics: Optimization and Graph Theory</li>
+            <li>
+                Worked 2.5 years at <a href="https://github.com/src-d">source{d}</a> as a Sotware Engineer in the ML team
+                <br> &rArr; MLonCode: code completion, automated code review, clone detection, ...
+            </li>
+            <li>Now working at <a href="https://owl.athenian.co/">Athenian</a> where I switched to Product
+                <br> &rArr; Provide engineering teams metrics and insights to speed up software delivery and improve code quality</li>
+        </ul>
+        <style>
+            #about li {
+                margin: 20px 0;
+            }
+        </style>
+    </section>
 
     <section class="slide vista" id="plan">
         <h2>Plan</h2>
@@ -237,13 +241,13 @@
     </section>
 
     <section class="slide" id="context">
-        <h2>Motivation</h2>
+        <h2>Origins</h2>
         <style>
             #context {
-                background: url("pictures/coca2.png");
+                background: url("pictures/car.jpg");
                 background-color: rgb(0, 0, 0, 0.7);
                 background-blend-mode: multiply;
-                background-size: contain !important;
+                background-size: cover !important;
                 background-repeat: no-repeat !important;
                 background-position: center !important;
             }
@@ -285,6 +289,15 @@
     </section> -->
 
     <section class="slide">
+        <h2>Motivation</h2>
+        <ul>
+            <li>Identify inter and intra-team interactions</li>
+            <li>Assess and mangage the skills of a talent pool</li>
+            <li>Measure bus factor</li>
+        </ul>
+    </section>
+
+    <section class="slide">
         <h2>Requirements</h2>
         <ul>
             <li>Large open source org</li>
@@ -304,21 +317,49 @@
         </ul>
     </section>
     
+    
+    <section class="slide" id="features">
+        <h2>Features</h2>
+        <style>
+            #features {
+                background: url("pictures/school.jpg");
+                background-color: rgb(0, 0, 0, 0.7);
+                background-blend-mode: multiply;
+                background-size: cover !important;
+                background-repeat: no-repeat !important;
+                background-position: center !important;
+            }
+            #features h2 {
+                margin:30px 0 0;
+                color: rgb(194, 194, 194);
+                text-align: left;
+                font-size:50px;
+            }
+        </style>
+    </section>
+
+
     <section class="slide">
-        <h2>Commit time series</h2> <!-- Who worked at the same time? at the same frequency? -->
+        <h2>Commit Time Series</h2> <!-- Who worked at the same time? at the same frequency? -->
         <ol>
-            <li>Collect and normalize the time series</li>
-            <li>Compute the pairwise distance matrix using Dynamic Time Wrapping and not L2 (fastdtw)</li>
-            <li>Clustering with HDBSCAN</li>
-            <li>Dimensionality reduction with UMAP</li>
+            <li>Collect and normalize the time series -> <a href="https://github.com/src-d/gitbase">gitbase</a></li>
+            <li>Compute the distance matrix using Dynamic Time Wrapping -> <a href="https://pypi.org/project/fastdtw/">fastdtw</a></li>
+            <li>Clustering -> <a href="https://hdbscan.readthedocs.io/en/latest/">HDBSCAN</a></li>
+            <li>Dimension reduction -> <a href="https://umap-learn.readthedocs.io/en/latest/">UMAP</a></li>
+            <li><a href="pictures/time-series-srcd.html">Results</a> for source{d}</li>
         </ol>
     </section>
     
     <section class="slide">
-        <h2>Commit Time Series</h2>
+        <h2>Developer Clustering</h2>
+        <!-- <h3 class="commit-time-series">Commit Time Series</h3> -->
         <img src="pictures/raw-clusters-commits.svg" class="raw-clusters-commits">
         <img src="pictures/team-clusters-commits.svg" class="team-clusters-commits">
         <style>
+            #commit-time-series h3 {
+                margin-top: -20px;
+                font-weight: italic !important;
+            }
             .raw-clusters-commits {
                 position: absolute;
                 width: 400px;
@@ -337,17 +378,17 @@
     <section class="slide">
         <h2>Programming languages</h2>
         <ol>
-            <li>Collect LoC added/deleted/changed by Developer by language - gitbase</li>
-            <li>Exclude markup languages (HTML, XML) and autogenerated ones (SVG, JSON, CSV)</li>
+            <li>Collect LoC added/deleted/changed by developer by language -> <a href="https://github.com/src-d/hercules">hercules</a></li>
+            <li>Exclude markup  and autogenerated languages: HTML, XML, JSON, SVG, ...</li>
             <li>Saturate to the 95th percentile</li>
-            <li>Metric distance is L2</li>
-            <li>First apply UMAP then clustering with HDBSCAN</li>
+            <li>Compute the distance matrix using L2</li>
+            <li>Dimension reduction and clustering in the embdedding space</li>
         </ol>
     </section>
     
 
     <section class="slide">
-        <h2>Programming Languages Experience</h2>
+        <h2>Developer Clustering</h2>
         <img src="pictures/raw-clusters_commits.svg" class="raw-clusters-experience">
         <img src="pictures/team-clusters_commits.svg" class="team-clusters-experience">
         <style>
@@ -370,40 +411,16 @@
     <section class="slide">
         <h2>Source code identifiers</h2>
         <ol>
-            <li>Large open source org - 117 repos <a href="https://gitlab.com/gitlab-org">gitlab.com/gitlab-org/*</a>, 13M LoC</li>
-            <li>Many contributors - 3k</li>
-            <li>Public team strucure - <a href="https://about.gitlab.com/company/team/">gitlab/team</a></li>
+            <li>Extract UASTs from source code files -> <a href="https://github.com/bblfsh">bblfsh</a></li>
+            <li>Represent code files as bag of TF-IDF scores of their identifiers</li>
+            <li>Assign developers an aggregation of the bags they contributed to</li>
+            <li>Find decorrelated sparse topics -> <a href="https://bigartm.readthedocs.io/en/stable/">BigARTM</a></li>
+            <li>Manually label the topics</li>
         </ol>
     </section>
-
-    <section class="slide">
-        <h2>Features</h2>
-        <ol>
-            <li>Commit time series:
-                    <ul>
-                        <li><code>dev1: {day0: 2 commits, day1: 3commits}</code></li>
-                    </ul>
-                </li>
-            <li>Contributions by programming languages (in LoC):
-                <ul>
-                    <li><code>dev1: {Ruby: [431, 737, 420], JS: [318, 119, 26]}</code></li>
-                </ul>
-            </li>
-            <li>Source code identifiers:
-                <ul>
-                    <li>file -> bag of TF-IDF scores of its identifiers</li>
-                </ul>
-            </li>
-        </ol>
-        <p class="source-web">collected with <a href="https://github.com/src-d/hercules">src-d/hercules</a> and <a href="https://github.com/src-d/gitbase">src-d/gitbase</a></p>
-    </section>
     
-
-
-    
-
     <section class="slide">
-        <h2>3. Topic Modeling</h2>
+        <h2>Topic Modeling</h2>
         <style>
             table {
                 font-size: 18px;
@@ -419,42 +436,41 @@
             }
         </style>
         <div>
-
-        <table>
-            <tr>
-                <th>Topic label</th>
-                <th>Top terms</th>
-            </tr>
-            <tr>
-                <td>Backend frameworks</td>
-                <td><code>servlet</code>, <code>flask</code>, <code>javax</code></td>
-            </tr>
-            <tr>
-                <td>Language detection</td>
-                <td><code>languag</code>, <code>java</code>, <code>linguist</code></td>
-            </tr>
-            <tr>
-                <td>Data mining</td>
-                <td><code>chartj</code>, <code>graphql</code>, <code>averag</code></td>
-            </tr>
-            <tr>
-                <td>Frontend + UI, CSS</td>
-                <td><code>modernizr</code>, <code>mstyle</code>, <code>elementn</code></td>
-            </tr>
-            <tr>
-                <td>Config management</td>
-                <td><code>chef</code>, <code>runner</code>, <code>platform</code></td>
-            </tr>
-            <tr>
-                <td>Low-level backend</td>
-                <td><code>btree</code>, <code>opclass</code>, <code>using</code></td>
-            </tr>
-        </table>
-    </div>                        
+            <table>
+                <tr>
+                    <th>Topic label</th>
+                    <th>Top terms</th>
+                </tr>
+                <tr>
+                    <td>Backend frameworks</td>
+                    <td><code>servlet</code>, <code>flask</code>, <code>javax</code></td>
+                </tr>
+                <tr>
+                    <td>Language detection</td>
+                    <td><code>languag</code>, <code>java</code>, <code>linguist</code></td>
+                </tr>
+                <tr>
+                    <td>Data mining</td>
+                    <td><code>chartj</code>, <code>graphql</code>, <code>averag</code></td>
+                </tr>
+                <tr>
+                    <td>Frontend + UI, CSS</td>
+                    <td><code>modernizr</code>, <code>mstyle</code>, <code>elementn</code></td>
+                </tr>
+                <tr>
+                    <td>Config management</td>
+                    <td><code>chef</code>, <code>runner</code>, <code>platform</code></td>
+                </tr>
+                <tr>
+                    <td>Low-level backend</td>
+                    <td><code>btree</code>, <code>opclass</code>, <code>using</code></td>
+                </tr>
+            </table>
+        </div>                        
     </section>
 
     <section class="slide">
-        <h2>3. Teams of topic contributors</h2>
+        <h2>Teams of topic contributors</h2>
         <div>
         <table>
             <tr>
@@ -496,7 +512,26 @@
     </div>                        
     </section>
 
-    <!-- Issues: identity matching, bot detection, -->
+    <section class="slide" id="issues">
+        <h2>Issues</h2>
+        <style>
+            #issues {
+                background: url("pictures/police.jpg");
+                background-color: rgb(0, 0, 0, 0.7);
+                background-blend-mode: multiply;
+                background-size: cover !important;
+                background-repeat: no-repeat !important;
+                background-position: center !important;
+            }
+            #issues h2 {
+                margin:30px 0 0;
+                color: rgb(194, 194, 194);
+                text-align: left;
+                font-size:50px;
+            }
+        </style>
+    </section>
+
 
     <section class="slide">
         <h2>Identity Matching</h2>
@@ -512,15 +547,50 @@
     </section>
 
     <section class="slide">
-        <h2>Bot identites</h2>
+        <h2>Bot Identites</h2>
         <ul>
-            <li>Introduce noise in the analysis -> <a href="pictures/bots.hml">CloudFoundry analysis</a></li>
+            <li>Introduce noise in the analysis -> <a href="pictures/bots.html">CloudFoundry analysis</a></li>
             <li>Squash the contributions of the real developers</li>
         </ul>
+        <div>
+            <table>
+                <tr>
+                    <th>Developer</th>
+                    <th>number of commits</th>
+                </tr>
+                <tr>
+                    <td>ci bot</td>
+                    <td>1852</td>
+                </tr>
+                <tr>
+                    <td>dependabot</td>
+                    <td>1630</td>
+                </tr>
+                <tr>
+                    <td>James White</td>
+                    <td>847</td>
+                </tr>
+                <tr>
+                    <td>final release builder</td>
+                    <td>719</td>
+                </tr>
+            </table>
+        </div> 
     </section>
 
     <section class="slide">
-        <h2>Outcome</h2>
+        <h2>Bot Detection</h2>
+        <ol>
+            <li>Build a training set of bot identities by running regex on the names</li>
+            <li>Train a <a href="https://github.com/VKCOM/YouTokenToMe">BPE</a> model on the emails</li>
+            <li>Extract statistical features from the commit activity</li>
+            <li>Train a <a href="https://xgboost.readthedocs.io/en/latest/">XGBoost</a> to detect bots among developer identities</li>
+            <li>Model published in <a href="https://github.com/src-d/modelforge">modelforge</a> and included in <a href="https://github.com/src-d/identity-matching">identity-matching</a></li>
+        </ol>
+    </section>
+
+    <section class="slide">
+        <h2>Conclusion</h2>
         <ol>
             <li>Paper presented at <a href="https://ml4se.github.io/">ML4SE'19</a></li>
             <li>Analysis included in manage your talent pool</li>
@@ -529,6 +599,13 @@
     
 	<section class="slide">
         <h2>Thank you</h2>
+        <ul class="no-bullets fa-bullets">
+            <li><i class="fa fa-envelope monofa" aria-hidden="true"></i><a href="mailto://waren@athenian.co">waren@athenian.co</a></li>
+            <li><i class="fa fa-twitter monofa" aria-hidden="true"></i><a href="https://twitter.com/warenlg">@warenlg</a></li>
+            <li><i class="fa fa-github monofa" aria-hidden="true"></i><a href="https://github.com/warenlg">@warenlg</a></li>
+            <li><i class="fa fa-rss monofa" aria-hidden="true"></i><a href="https://warenlg.github.io/">warenlg.github.io</a></li>
+            <li><i class="fa fa-rss monofa" aria-hidden="true"></i><a href="https://owl.athenian.co/">owl.athenian.co</a></li>
+        </ul>
     </section>
 
     <div class="progress"></div>
